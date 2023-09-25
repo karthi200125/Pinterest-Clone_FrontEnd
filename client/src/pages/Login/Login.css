@@ -1,0 +1,167 @@
+.login {
+    background-color: white;
+    height: 600px;    
+    border-radius: 30px;
+    width: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    font-size: 22px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close:hover {
+    background-color: rgba(0, 0, 0, 0.076);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    height: 550px;    
+}
+
+.top {
+    width: 100%;
+    text-align: center;
+}
+
+.top>:nth-child(1) {
+    color: #E60023;
+}
+
+.top h1 {
+    font-size: 30px;
+    margin-top: 10px;
+    color: rgba(0, 0, 0, 0.801);
+    letter-spacing: -1px;
+    font-weight: 500;
+}
+
+.inputs {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.inputbox {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 5px;
+}
+
+.inputbox label {
+    font-size: 12px;
+}
+
+.inputbox input {
+    padding: 12px;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.inputbox input:focus {
+    outline: yellowgreen;
+}
+
+.inputs .fp {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: start;
+}
+
+.btnlog {
+    background-color: #E60023;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btnlog:hover {
+    background-color: #9e041bd8;
+}
+
+.inputs span {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.auth{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;    
+}
+
+.auth .inputbox {
+    width: 100%;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
+
+
+.bottom {
+    height: 100%;    
+    text-align: center;
+    margin-top: 10px;
+}
+
+.bottom p{
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.534);                
+    line-height: 15px;
+}
+
+.bottom p b{
+    color: black;    
+    cursor: pointer;
+}
+.bottom p b:hover{
+    text-decoration: underline;
+}
+
+.line{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.177);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;        
+    margin-bottom: 10px;
+}
+
+.bottom span{
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.link{
+    cursor: pointer;    
+}
+.link:hover{
+    color: #E60023;
+}

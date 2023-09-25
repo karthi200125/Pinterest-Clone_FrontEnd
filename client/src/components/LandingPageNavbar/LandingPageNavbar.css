@@ -1,0 +1,83 @@
+.LandingPageNavbar {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: white;    
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.left>:nth-child(1) {
+    color: #E60023;
+    cursor: pointer;
+}
+
+.left h1 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: -1px;
+    color: #E60023;
+    cursor: pointer;
+}
+
+.right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.right ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    margin-right: 40px;
+}
+
+.right ul li{
+    font-size: 16px;    
+    font-weight: bold;
+}
+
+.loginbtn{
+    background-color: #E60023;
+    color: white;
+}
+
+.loginbtn:hover{
+    background-color: #9e041bd8;
+}
+
+.signupbtn{
+    background-color: rgba(0, 0, 0, 0.070);
+    color: black;
+}
+.signupbtn:hover{
+    background-color: rgba(0, 0, 0, 0.150);
+    
+}
+
+.right ul li:hover{
+    text-decoration: underline;
+}
+
+.logincon , .signupcon{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.422);        
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

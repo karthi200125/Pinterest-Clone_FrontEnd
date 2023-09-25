@@ -1,0 +1,8 @@
+.landingpage{
+    background: url('../../assets/pin.png') no-repeat;
+    min-height: 100vh;
+    /* background: linear-gradient(rgba(0, 0, 0, 0.922), rgba(0, 0, 0, 0.5)), url(../../assets/bg-3.jpg) no-repeat;     */
+    background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
