@@ -1,0 +1,87 @@
+.card {
+    width: 230px;
+    max-height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.card:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    border-radius: 20px;
+}
+
+.card:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+    border-radius: 20px;
+}
+
+.save-button {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    z-index: 10;
+    padding: 15px;
+    border-radius: 25px;
+    font-size: 15px;
+    background-color: #E60023;
+    color: white;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.save-button:hover{
+    background-color: #9e041bd8;
+}
+
+.card:hover .save-button {
+    opacity: 1;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    z-index: 10;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.card:hover .bottom {
+    opacity: 1;
+}
+
+.bottom .cardiconcon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom .cardiconcon:hover {
+    background-color: white;
+    transition: 0.5s;
+}

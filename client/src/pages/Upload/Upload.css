@@ -1,0 +1,127 @@
+.uploadcon{
+    width: 100%;
+    height: 87vh;    
+    display: flex;
+    flex-direction: column;   
+    border-top: 1px solid gray; 
+}
+
+.publish{
+    width: 100%;    
+    height: 80px;    
+    padding: 30px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: end;
+}
+
+.publish button{
+    padding: 15px;    
+    background-color: #E60023;
+    border-radius: 25px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.publish button:hover{
+    background-color: #9e041bd8;
+}
+
+.publish span{
+    color: rgba(0, 0, 0, 0.767);
+}
+
+.upload{
+    width: 100%;
+    max-height: 100vh;    
+    overflow: scroll;
+    display: flex;
+    flex-direction: row;    
+}
+
+.upload .left{    
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload .left .imgcon{    
+    height: 300px;
+    width: 330px;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid black;
+}
+
+.upload .left .imgcon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.pencil{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.719);    
+    color: black;
+}
+
+.pencil:hover{
+    background-color: white;    
+}
+
+.upload .right{
+    width: 60%;    
+    height: max-content;        
+}
+
+.upload .right form{  
+  width: 80%;
+  display: flex;  
+  align-items: start;    
+}
+
+.upload .right form .top{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    padding: 20px;
+}
+
+.upload .right form .top label{
+    font-size: 12px;
+}
+
+.details .checkboxs {
+    display: flex;
+    flex-direction: row;            
+    gap: 40px;
+}
+
+.details .checkboxs .checkbox{
+    display: flex;
+    gap: 10px;
+}
+
+.upload .right form .top input{
+    padding: 15px;
+    width: 100%;
+    border: 2px solid gray;
+    border-radius: 12px;
+}
+
+.upload .right form .top .textarea{
+    height: 120px;
+    width: 100%;
+    border: 2px solid gray;
+    border-radius: 10px;
+}

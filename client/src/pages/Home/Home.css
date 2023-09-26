@@ -1,0 +1,18 @@
+.home{
+    width: 100%;    
+    min-height: 100vh;    
+}
+
+.homecon{    
+    min-height: 100vh;    
+    margin-left: 50px;    
+    margin-right: 50px;    
+}
+
+.cards{
+    width: 100%;
+    columns: 5;
+    column-gap: 0px;
+    margin: 20px auto;    
+}
+

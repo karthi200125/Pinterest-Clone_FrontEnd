@@ -16,6 +16,13 @@ a{text-decoration: none;color: inherit;}
 
 li{cursor:pointer;list-style: none;}
 
+input{
+  border: none;
+}
+
+/* background-color: #9e041bd8; */
+/* #E60023 */
+
 button{border: none;background-color: transparent; cursor: pointer;}
 button:hover{
     transition: 0.4s ease-in-out;
@@ -38,3 +45,43 @@ button:hover{
     font-weight: 700;
   }
 
+  .iconhover{  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: black;
+    border-radius: 50%;
+    cursor: pointer;  
+  }
+  
+  .iconhover:hover{
+      background-color: rgba(0, 0, 0, 0.070);
+  }
+  
+  .redbtn{
+    padding:15px;    
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: #E60023;
+    color: white;
+  }
+
+  .redbtn:hover{
+    background-color: #9e041bd8;
+  }
+
+  .graybtn{
+    padding:15px;    
+    border-radius: 25px;
+    font-size: 15px;    
+    background-color: rgba(0, 0, 0, 0.070);
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 600;
+  }
+
+  .graybtn:hover{
+    background-color: rgba(0, 0, 0, 0.150);
+  }

@@ -1,0 +1,139 @@
+.create{
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.218);
+    position: relative;    
+}
+
+.create .scp{
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.scp img{
+    margin-top: -20%;
+    margin-bottom: 10%;
+}
+
+.scp .text{
+    display: flex;        
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.scp .text button{
+    background-color: #E60023 ;
+    color: white;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.scp .text button:hover{
+    background-color: #cc0927f8;
+}
+
+.scp .text h1{
+    font-size: 30px;
+    font-weight: 500;
+}
+.scp .text span{
+    color: rgba(0, 0, 0, 0.611);
+}
+
+.createboxcon{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.516);
+    top: 0;
+    left: 0;
+    display: flex;    
+    justify-content: center;
+    align-items: center;    
+}
+
+.createbox{
+    background-color: white;
+    width: 900px;
+    height: 580px;
+    border-radius: 30px;
+    position: relative;
+    padding:15px 30px;    
+    display: flex;
+    flex-direction: column;    
+    justify-content: space-between;
+    flex-direction: column; 
+}
+
+.createbox .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:15px;    
+}
+
+.create .top .createclose{  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: black;
+  border-radius: 50%;
+  cursor: pointer;  
+}
+
+.create .top .createclose:hover{
+    background-color: rgba(0, 0, 0, 0.070);
+}
+
+.create .top h1{
+    font-size: 18px; 
+    font-weight: 600;
+}
+
+.createbox .uploadbox{
+    width: 100%;
+    height: 70%;    
+    border: 1px solid gray;
+    border-radius: 40px;
+}
+
+.createbox .btm{
+   background-color: rgba(0, 0, 0, 0.100);
+   height: 12%;   
+   border-radius: 20px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 30px;   
+}
+
+.createbox .btm span{
+    color: rgba(0, 0, 0, 0.808);
+}
+.createbox .btm button{
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.createbox .btm button:hover{
+    background-color: transparent;
+}
+
+
+
+
+
+
