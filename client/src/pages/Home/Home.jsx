@@ -2,6 +2,7 @@ import React from 'react'
 import './Home.css'
 import Navbar from '../../components/Navbar/Navbar'
 import Card from '../../components/Card/Card'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -30,7 +31,7 @@ const Home = () => {
                 
                 <div className="cards">
                 {images.map((i)=>(
-                    <Card src={i.img} key={i.img}/>
+                    <Link to='/single/12'><Card src={i.img} key={i.img}/></Link>
                     ))}
                 </div>
             </div>

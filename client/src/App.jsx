@@ -7,6 +7,7 @@ import Create from './pages/Create/Create'
 import Navbar from './components/Navbar/Navbar'
 import Upload from './pages/Upload/Upload'
 import Profile from './pages/Profile/Profile'
+import Singleimg from './pages/SingleImg/Singleimg'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path='/create' element={<Create/>}/>
           <Route path='/upload' element={<Upload/>}/>
           <Route path='/profile' element={<Profile/>}/>
+          <Route path='/single/:id' element={<Singleimg/>}/>
         </Routes>
       </BrowserRouter>
     </div>

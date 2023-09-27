@@ -1,0 +1,179 @@
+.singlecon {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.single {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 1000px;
+    height: 700px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.1);    
+}
+
+.single .left {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+}
+
+.single .left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.single .left>:nth-child(2) {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
+
+.single .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;        
+    position: relative;
+}
+
+.single .right .s_top {    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 500px;    
+    padding: 40px 40px;    
+}
+
+.s_top .one , .s_top .two{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;        
+    gap: 20px;        
+}
+
+.s_top .two h1{
+  font-size: 15px;
+  font-weight: 500;  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.single .right .s_btm{    
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    gap: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.137);
+}
+
+.single .right .s_btm span , .comment{
+   display: flex;
+   flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;    
+    gap: 20px;
+}
+
+.single .right .s_btm .comment img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.single .right .s_btm .comment .input{
+    display: flex;   
+    align-items: center;        
+    justify-content: center;
+    width:100%;    
+    background-color: rgba(0, 0, 0, 0.150);    
+    border-radius: 30px;        
+    overflow: hidden;
+}
+
+.single .right .s_btm .comment .input input{
+    padding: 20px;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+}
+
+.s_mid {
+height: 100%;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-direction: column;
+padding: 20px 40px;
+}
+
+.s_mid .follow{
+    display: flex;
+align-items: center;
+justify-content: space-between;
+flex-direction: row;
+width: 100%;
+}
+
+.s_mid .follow .fname{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    gap: 10px;
+    
+}
+
+.s_mid .follow .fname h1{
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.s_mid .follow .fname h1 p{
+    color: rgba(0, 0, 0, 0.612);
+    font-size: 15px;
+    
+}
+
+.fnameimg{
+    width: 50px;
+    height: 50px;
+}
+
+.cud{
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;
+}
+
+.cud span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-weight:500;
+    font-size: 20px;
+}

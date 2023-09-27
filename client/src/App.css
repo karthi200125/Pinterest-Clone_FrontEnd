@@ -85,3 +85,8 @@ button:hover{
   .graybtn:hover{
     background-color: rgba(0, 0, 0, 0.150);
   }
+
+  .img{
+    border-radius: 50%;
+    object-fit: cover;
+  }
