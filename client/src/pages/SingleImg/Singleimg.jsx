@@ -7,16 +7,32 @@ import { FaLink } from 'react-icons/fa'
 import { BsChevronDown } from 'react-icons/bs'
 import { TfiHeart } from 'react-icons/tfi'
 import { MdKeyboardArrowUp } from 'react-icons/md'
+import { CiUser } from 'react-icons/ci'
+import { Link, useLocation } from 'react-router-dom'
+import { useContext } from 'react'
+import {AuthContext} from '../../Context/Authcontext'
+import Navbar from '../../components/Navbar/Navbar'
+
 
 const Singleimg = () => {
 
     const [commentopen, setcommentopen] = useState(false)
+    const location = useLocation();
+    const data = location.state;
+
+    const {user} = useContext(AuthContext)
+
+    const comments = false
+
+    console.log("check user img",user.profilePic)
+
 
     return (
         <div className='singlecon'>
+            <Navbar/>
             <div className="single">
                 <div className="left">
-                    <img src="https://i.pinimg.com/564x/ad/d1/62/add162e1daaf49e9560bf26b5d639bb5.jpg" alt="" />
+                    <img src={data.p_image} alt="" />
                     <div className="iconhover"><TbZoomPan /></div>
                 </div>
                 <div className="right">
@@ -32,26 +48,41 @@ const Singleimg = () => {
                         </div>
                     </div>
                     <div className="s_mid">
+                        <div className="imgcontent">
+                            <h1>{data.p_title}</h1>
+                            <span>{data.p_desc}</span>
+                        </div>
                         <div className="follow">
+                            <Link to={`/profile/${data.userId}`} >
                             <div className="fname">
-                                <img src="https://i.pinimg.com/75x75_RS/73/72/a6/7372a6f7f3ed4ce626b99928e8ee109f.jpg" alt="" className='img fnameimg' />
-                                <h1>karthkeyan <p>100 followers</p></h1>
+                                {data.userimg ?
+                                    <img src={data.userimg} alt="" className='img fnameimg' />
+                                    : <CiUser size={30} />}
+                                <h1>{data.username}<p>100 followers</p></h1>
                             </div>
+                            </Link>
                             <button className='graybtn'>Follow</button>
                         </div>
                         <div className="cud">
-                            <span>Comments <div className="iconhover" onClick={()=>setcommentopen(!commentopen)}>{commentopen ? <MdKeyboardArrowUp/> : <BsChevronDown/> }</div></span>
-                            {commentopen &&
-                                <div className="commentscon">
-                                    comments
-                                </div>
+                            <span>Comments <div className="iconhover" onClick={() => setcommentopen(!commentopen)}>{commentopen ? <MdKeyboardArrowUp /> : <BsChevronDown />}</div></span>
+                            {
+                                comments ? (
+                                    commentopen && (
+                                        <div className="commentscon">
+                                            comments
+                                        </div>
+                                    )
+                                ) : (
+                                    "No comments yet! Add one to start the conversation."
+                                )
                             }
+
                         </div>
                     </div>
                     <div className="s_btm">
                         <span>2 comments <div className="iconhover"><TfiHeart /></div></span>
                         <div className="comment">
-                            <img src="https://i.pinimg.com/75x75_RS/41/7e/5c/417e5c126d9754ecc265007a096f97a1.jpg" alt="" />
+                            <img src={user.profilePic} alt={user.username} />
                             <div className="input">
                                 <input type="text" placeholder='Add a comment' />
                                 <img src="" alt="" />

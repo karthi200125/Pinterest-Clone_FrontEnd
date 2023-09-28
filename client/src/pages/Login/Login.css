@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    z-index: 100;
 }
 
 .close {
@@ -164,4 +165,22 @@ form {
 }
 .link:hover{
     color: #E60023;
+}
+
+.passwordbox{
+    display: flex;
+    flex-direction: row;
+    width: 100%;    
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(128, 128, 128, 0.300);
+    border-radius: 10px;
+    padding: 0 10px;  
+}
+
+.passwordbox input{
+    border: none;  
+}
+.passwordbox>:nth-child(2){
+    cursor: pointer;
 }

@@ -6,16 +6,18 @@ import { AiFillMessage } from 'react-icons/ai'
 import { FaSearch } from 'react-icons/fa'
 import More from '../More/More'
 import {Link, useLocation} from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from '../../Context/Authcontext'
 
 
 const Navbar = () => {
-
     const [moreopen, setmoreopen] = useState(false)
 
     const location = useLocation();
     const pathname = location.pathname
 
     console.log(pathname)
+    const {user} = useContext(AuthContext)
 
     return (
         <div className='navbar'>
@@ -34,8 +36,8 @@ const Navbar = () => {
             <div className="right">
                 <div className='iconhovercon'><BiSolidBell size={27} /><span className='iconname'>Notifications</span></div>
                 <div className='iconhovercon'><AiFillMessage size={27} /><span className='iconname'>Messages</span></div>
-                <Link to="/profile"><div className='iconhovercon'>
-                    <img src="https://i.pinimg.com/75x75_RS/41/7e/5c/417e5c126d9754ecc265007a096f97a1.jpg" alt="" /><span className='iconname'>Your Profile</span>
+                <Link to={`/profile/${user._id}`}><div className='iconhovercon'>
+                    <img src={user.profilePic} alt="" /><span className='iconname'>Your Profile</span>
                 </div></Link>
                 <div className='iconhovercon' onClick={() => setmoreopen(!moreopen)}><BsChevronDown size={15} /><span className='iconname'>More</span></div>
             </div>

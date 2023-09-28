@@ -3,6 +3,7 @@ import './Create.css'
 import { GrClose } from 'react-icons/gr'
 import { BsQuestionLg } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+import Navbar from '../../components/Navbar/Navbar'
 
 const Create = () => {
 
@@ -10,6 +11,7 @@ const Create = () => {
 
     return (
         <div className='create'>
+            <Navbar/>
             <div className="scp">
                 <img src="https://i.pinimg.com/originals/df/01/67/df016746913dc6cefe09cc822a82636c.jpg" alt="" />
                 <div className="text">

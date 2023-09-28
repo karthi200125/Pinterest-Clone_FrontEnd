@@ -90,3 +90,16 @@ button:hover{
     border-radius: 50%;
     object-fit: cover;
   }
+
+  .err{
+    color: red;
+    font-size: 12px;
+    font-weight: 200;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+  }

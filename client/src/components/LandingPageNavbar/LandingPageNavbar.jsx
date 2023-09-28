@@ -43,12 +43,12 @@ const handlereglink =()=>{
             </>
             {loginopen &&
                 <div className="logincon">
-                    <Login onclose={handleclose} onreglink={handlereglink}/>
+                    <Login onClose={handleclose} onRegLink={handlereglink}/>
                 </div>
             }
             {signupopen &&
                 <div className="signupcon">
-                    <Register onclose={handleclose} onloginlink={handleloginlink}/>
+                    <Register onClose={handleclose} onLoginLink={handleloginlink}/>
                 </div>
             }
 
