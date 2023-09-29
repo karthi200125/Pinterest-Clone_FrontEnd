@@ -3,29 +3,42 @@ import './EditProfile.css';
 import { AuthContext } from '../../Context/Authcontext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
+import {BiSolidRightArrowAlt} from 'react-icons/bi'
 
 const EditProfile = () => {
-  const [username, setusername] = useState('');
-  const [email, setemail] = useState('');
-  const [profilePic, setprofilePic] = useState(null);
-
+  
   const { user } = useContext(AuthContext);
+
+  const [file, setFile] = useState(null);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  
+
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await axios.post("http://localhost:8800/api/upload", formData);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('email', email);
-      formData.append('profilePic', profilePic);
-
-      await axios.put(`http://localhost:8800/api/users/${user._id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      let imgUrl = await upload();
+      await axios.put(`http://localhost:8800/api/users/${user._id}`, {
+        email,
+        username,
+        userId: user._id,
+        profilePic: imgUrl
       });
+      console.log("Update success");
     } catch (error) {
-      console.error('Update Error:', error);
+      console.error("Update Failed");
     }
   };
 
@@ -41,15 +54,25 @@ const EditProfile = () => {
         <div className='imgcon'>
           <p>Photo</p>
           <div className='imgcon2'>
-            <img src={user.profilePic} alt={user.username} />
+             {user.profilePic ?
+              <img src={"../upload/" + user.profilePic} alt={user.username} className='editproimg'/>
+              :
+              <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" className='editpropic'/>
+            } 
             <label className='graybtn' htmlFor='imageInput'>
               Change
-            </label>
+            </label>                        
+            {file && (
+              <div className="changeimgcon">
+              <BiSolidRightArrowAlt size={30}/>
+              <img className="changeimg" alt="" src={URL.createObjectURL(file)} />
+              </div>
+            )}
             <input
               type='file'
               id='imageInput'
               accept='image/*'
-              onChange={(e) => setprofilePic(e.target.files[0])}
+              onChange={(e) => setFile(e.target.files[0])}
               style={{ display: 'none' }}
             />
           </div>
@@ -57,11 +80,11 @@ const EditProfile = () => {
 
         <div className='editinputbox'>
           <span>Name</span>
-          <input type='text' placeholder='User Name' value={username} onChange={(e) => setusername(e.target.value)} />
+          <input type='text' placeholder='User Name' value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div className='editinputbox'>
           <span>Email</span>
-          <input type='email' placeholder='Email' value={email} onChange={(e) => setemail(e.target.value)} />
+          <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className='btns'>
           <button className='graybtn'>Reset</button>

@@ -1,3 +1,4 @@
+
 .card {
     width: 230px;
     max-height: 500px;
@@ -32,7 +33,7 @@
     border-radius: 20px;
 }
 
-.save-button {
+.save-button ,.saved-btn{
     position: absolute;
     top: 5%;
     right: 5%;
@@ -50,8 +51,17 @@
     background-color: #9e041bd8;
 }
 
-.card:hover .save-button {
+.card:hover .save-button ,.card:hover .saved-btn{
     opacity: 1;
+}
+
+.saved-btn{
+  background-color: black !important;
+}
+
+.saved-btn:hover{
+    background-color: white !important;
+    color: black !important;
 }
 
 .bottom {
@@ -85,3 +95,4 @@
     background-color: white;
     transition: 0.5s;
 }
+

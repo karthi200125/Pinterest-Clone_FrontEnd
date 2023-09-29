@@ -8,12 +8,16 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/Authcontext';
 import Navbar from '../../components/Navbar/Navbar';
+import Card from '../../components/Card/Card'
+import Share from '../../components/Share/Share';
 
 const Profile = () => {
   const [create, setCreate] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [share, setshare] = useState(false);
   const [profile, setProfile] = useState({});
   const [followed, setFollowed] = useState(false);
+  const [createdposts, setcreatedposts] = useState([]);
 
   const location = useLocation();
   const pathname = location.pathname.split('/').pop();
@@ -60,23 +64,38 @@ const Profile = () => {
     setFollowed(!followed);
   };
 
-  console.log(profile?.followers?.length);
+  const savedPosts = user.savedposts;
+
+  useEffect(() => {
+    const getcreateposts = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8800/api/posts/${pathname}`)
+        setcreatedposts(res.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getcreateposts();
+  }, [pathname])
+
+  console.log(profile, "from created posts")
 
   return (
     <div className='profilecon'>
-      <Navbar/>
+      <Navbar />
       <div className="profile">
         {profile.profilePic ? (
-          <img src={profile.profilePic} alt="" />
+          // <img src={profile._id === user._id ? "../upload/" + profile.profilePic : profile.profilePic} alt="" />
+          <img src={ "../upload/" + profile.profilePic } alt="" />
         ) : (
-          <CiUser size={70} />
+          <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" className='profilnonuserpic'/>
         )}
         <h1>{profile.username}</h1>
         <p>{profile.email}</p>
         <span>{profile?.followers?.length} following</span>
         {user._id === pathname ? (
           <div className="btns">
-            <button className='graybtn'> Share</button>
+            <button className='graybtn' onClick={()=>setshare(!share)}> Share</button>            
             <Link to={`/editprofile/${user._id}`}>
               <button className='graybtn'>Edit Profile</button>
             </Link>
@@ -94,7 +113,7 @@ const Profile = () => {
       </div>
       <div className="c-s">
         <span onClick={handleCreate} className={create ? "slideactive" : ""}>
-          Create
+          Created
         </span>
         <span onClick={handleSaved} className={saved ? "slideactive" : ""}>
           Saved
@@ -103,10 +122,20 @@ const Profile = () => {
         {user._id === pathname ? (
           <>
             {create && (
-              <div className="createe">
-                <span>Nothing to show...yet! Pins you create will live here.</span>
-                <button className='redbtn'>Create Pin</button>
-              </div>
+              <>
+              {createdposts && createdposts.length > 0 ? (
+                  <div className="createdposts">
+                    {createdposts.map((createpost) => (
+                      <Card src={createpost} key={createpost._id} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="createe">
+                    <span>Nothing to show...yet! Pins you create will live here.</span>
+                    <Link to="/create"><button className='redbtn'>Create Pin</button></Link>
+                  </div>
+                )}
+              </>              
             )}
             {saved && (
               <div className="saved">
@@ -114,18 +143,36 @@ const Profile = () => {
                   <div className="iconhover"><BiGitCompare size={25} /></div>
                   <div className="iconhover"><AiOutlinePlus size={25} /></div>
                 </span>
-                <p>You haven't saved any Pins yet</p>
-                <button className='graybtn'>Find Ideas</button>
+                {savedPosts && savedPosts.length > 0 ? (
+                  <div className='profilesavedcard'>
+                    {savedPosts.map((save) => (
+                      <Card src={save} key={save._id} />
+                    ))}
+                  </div>
+                ) : (
+                  <>
+                    <p>You haven't saved any Pins yet</p>
+                    <button className='graybtn'>Find Ideas</button>
+                  </>
+                )}
               </div>
             )}
           </>
         ) : (
           <>
-            {create && <div className="createe"></div>}
-            {saved && <div className="saved"></div>}
+            {create && <div className="createe">
+            {pathname !== user._id ? 
+            <div className="createdposts">              
+                {createdposts.map((createpost) => (
+                  <Card src={createpost} key={createpost._id} />                  
+                ))}
+              </div>
+              :""}
+              </div>}
+            {saved && <div className="saved">not current user</div>}
           </>
         )}
-      </div>
+      </div>      
     </div>
   );
 }

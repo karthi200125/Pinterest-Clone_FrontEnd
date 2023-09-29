@@ -16,6 +16,7 @@
     gap: 10px;    
 }
 
+
 .editcon form .imgcon{
     display: flex;
     flex-direction: column;
@@ -29,10 +30,34 @@
     gap: 10px;
 }
 
-.editcon form .imgcon img{
+.editcon form .imgcon .editproimg{
     width: 80px;
     height: 80px;
     object-fit: cover;
+    border-radius: 50%;
+}
+
+.changeimgcon{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+    padding: 0 30px;
+}
+
+.changeimg{
+    width: 100px;
+    height: 100px;
+    margin-left: 50px;
+    border-radius: 50%;
+    object-fit: contain;
+    
+}
+
+.editpropic{
+    width: 80px;
+    height: 80px;        
+    object-fit: contain;
     border-radius: 50%;
 }
 

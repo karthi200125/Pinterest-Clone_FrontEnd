@@ -50,3 +50,26 @@
     border-radius: 50%;
     object-fit: cover;
 }
+.morepropic{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logout{    
+    width: 100%;    
+    border-radius: 10px;
+    padding: 0 20px;
+    text-align: start;
+    height: 40px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.070);
+}
+
+.logout:hover{
+    background-color: rgba(0, 0, 0, 0.120);
+}

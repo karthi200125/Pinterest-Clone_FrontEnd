@@ -13,7 +13,7 @@ import { AuthContext } from './Context/Authcontext'
 
 const App = () => {
 
-  const {use} = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
   
   return (
     <div>

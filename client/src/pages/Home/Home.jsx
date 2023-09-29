@@ -30,7 +30,8 @@ const [posts , setposts] = useState([])
 
                 <div className="cards">
                     {posts.map((data) => (
-                        <Link to={`/single/${data._id}`} state={data}><Card src={data.p_image} key={data._id} /></Link>
+                        // <Link to={`/single/${data._id}`} state={data}><Card src={data} key={data._id} /></Link>                        
+                        <Card src={data} key={data._id} /> 
                     ))}
                 </div>
             </div>
