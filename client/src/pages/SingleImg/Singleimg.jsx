@@ -13,12 +13,13 @@ import { useContext } from 'react';
 import { AuthContext } from '../../Context/Authcontext';
 import Navbar from '../../components/Navbar/Navbar';
 import axios from 'axios';
+import { makeRequest } from '../../axios';
 
 const Singleimg = () => {
     const [liked, setLiked] = useState(false);
     const [commentopen, setCommentOpen] = useState(false);
     const [saved, setSaved] = useState(false);
-    const [followed, setFollowed] = useState(false);
+    const [followed, setFollowed] = useState(false);    
     const location = useLocation();
     const data = location.state;
     const pathnameSegments = location.pathname.split('/');
@@ -36,7 +37,7 @@ const Singleimg = () => {
 
     useEffect(() => {
         setFollowed(user.followers?.includes(pathname));
-      }, [user.followers, pathname]);
+    }, [user.followers, pathname]);
 
     const handleSaveClick = async () => {
         try {
@@ -51,48 +52,40 @@ const Singleimg = () => {
         }
     };
 
-    useEffect(() => {
-        // Check if the user has liked this post and set the initial state
-        const checkLiked = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8800/api/posts/${pathname}/like/${user._id}`);
-                setLiked(response.data.liked);
-            } catch (error) {
-                console.error(error);
+    useEffect(()=>{
+        setLiked(data.p_likes.includes(user._id))
+    },[user._id,data.p_likes])
+    
+    const handleFollow = async () => {
+        try {
+            if (followed) {
+                await axios.put(`http://localhost:8800/api/users/${pathname}/unfollow`, { userId: user._id });
+            } else {
+                await axios.put(`http://localhost:8800/api/users/${pathname}/follow`, { userId: user._id });
             }
-        };
+        } catch (error) {
+            console.log(error);
+        }
+        setFollowed(!followed);
+    };
 
-        checkLiked();
-    }, [pathname, user._id]);
+    
+    const [likecount , setLikeCount] = useState(data.p_likes.length)    
 
     const handleLikeClick = async () => {
         try {
-            // Toggle the like status when the heart icon is clicked
-            if (liked) {
-                await axios.put(`http://localhost:8800/api/posts/${pathname}/unlike`, { userId: user._id });
-            } else {
-                await axios.put(`http://localhost:8800/api/posts/${pathname}/like`, { userId: user._id });
-            }
-            setLiked(!liked);
+            await makeRequest.put(`/users/${pathname}/like`, { userId: user._id });            
+            setLiked(!liked);            
+            setLikeCount(liked ? likecount - 1 : likecount + 1);
         } catch (err) {
             console.log(err);
         }
     };
 
-    const handleFollow = async () => {
-        try {
-          if (followed) {
-            await axios.put(`http://localhost:8800/api/users/${pathname}/unfollow`, { userId: user._id });
-          } else {
-            await axios.put(`http://localhost:8800/api/users/${pathname}/follow`, { userId: user._id });
-          }
-        } catch (error) {
-          console.log(error);
-        }
-        setFollowed(!followed);
-      };
     
-console.log(pathname,"pathname")
+    
+
+    console.log("post likes", likecount);
 
     return (
         <div className='singlecon'>
@@ -130,9 +123,10 @@ console.log(pathname,"pathname")
                                     <h1>{data.username}<p>{data.folloers} following</p></h1>
                                 </div>
                             </Link>
-                            <button className='redbtn' onClick={handleFollow}>
+                            <button className={`redbtn ${followed ? "unfollow-btn" : "follow-btn"}`} onClick={handleFollow}>
                                 {followed ? "Unfollow" : "Follow"}
                             </button>
+
                         </div>
                         <div className="cud">
                             <span>Comments <div className="iconhover" onClick={() => setCommentOpen(!commentopen)}>{commentopen ? <MdKeyboardArrowUp /> : <BsChevronDown />}</div></span>
@@ -156,11 +150,11 @@ console.log(pathname,"pathname")
                                     size={25}
                                     onClick={handleLikeClick}
                                     style={{
-                                        color: data.p_likes.includes(user._id) ? 'red' : liked ? 'red' : 'gray'
+                                        color: liked ? 'red' : 'gray'
                                     }}
                                 />
                             </div>
-                            {data.p_likes.length} Likes
+                            {likecount} Likes 
                         </span>
                         <div className="comment">
                             <img src={"/upload/" + user.profilePic} alt={user.username} />

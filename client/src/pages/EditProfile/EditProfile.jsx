@@ -1,24 +1,25 @@
 import React, { useContext, useState } from 'react';
 import './EditProfile.css';
 import { AuthContext } from '../../Context/Authcontext';
-import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
 import {BiSolidRightArrowAlt} from 'react-icons/bi'
+import {makeRequest } from '../../axios'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const EditProfile = () => {
-  
-  const { user } = useContext(AuthContext);
+
+const EditProfile = () => {    
+  const { user , dispatch} = useContext(AuthContext);
 
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
-  
+  const queryClient = useQueryClient();
 
   const upload = async () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await axios.post("http://localhost:8800/api/upload", formData);
+      const res = await makeRequest.post("/upload", formData);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -26,21 +27,33 @@ const EditProfile = () => {
     }
   }
 
+  const mutation = useMutation((newpost) => {
+    return makeRequest.put(`/users/${user._id}`, newpost)
+  }
+    , {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['profile'])
+      },
+    })
+    
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let imgUrl = await upload();
-      await axios.put(`http://localhost:8800/api/users/${user._id}`, {
+      mutation.mutate({
         email,
         username,
         userId: user._id,
         profilePic: imgUrl
-      });
+      })    
+      dispatch({ type: "UPDATE_PROFILE", payload: { email, username, profilePic: imgUrl } });
       console.log("Update success");
     } catch (error) {
       console.error("Update Failed");
     }
   };
+
+console.log("fromn edit" , user)
 
   return (
     <div className='editcon'>

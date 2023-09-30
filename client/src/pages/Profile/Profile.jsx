@@ -2,44 +2,43 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Profile.css';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiGitCompare } from 'react-icons/bi';
-import { CiUser } from 'react-icons/ci';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/Authcontext';
 import Navbar from '../../components/Navbar/Navbar';
-import Card from '../../components/Card/Card'
+import Card from '../../components/Card/Card';
 import Share from '../../components/Share/Share';
+import { makeRequest } from '../../axios';
+import { useQuery } from '@tanstack/react-query';
 
 const Profile = () => {
   const [create, setCreate] = useState(true);
   const [saved, setSaved] = useState(false);
-  const [share, setshare] = useState(false);
-  const [profile, setProfile] = useState({});
+  const [share, setShare] = useState(false);
   const [followed, setFollowed] = useState(false);
-  const [createdposts, setcreatedposts] = useState([]);
-
+  
   const location = useLocation();
   const pathname = location.pathname.split('/').pop();
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8800/api/users/${pathname}`);
-        setProfile(res.data);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    };
-
-    fetchProfile();
-  }, [pathname]);
-
   const { user } = useContext(AuthContext);
+  const savedPosts = user.savedposts;
+
+  const { isLoading: profileLoading, error: profileError, data: profileData } = useQuery(['profile', pathname], async () => {
+    const res = await makeRequest.get(`/users/${pathname}`);
+    return res.data;
+  });
+
+  const { isLoading: createdPostsLoading, error: createdPostsError, data: createdPostsData } = useQuery(['createdpost', pathname], async () => {
+    const res = await makeRequest.get(`/posts/${pathname}`);
+    return res.data;
+  });
+
+  const profilePic = profileData?.profilePic || '';
+  const username = profileData?.username || '';
+  const email = profileData?.email || '';
 
   useEffect(() => {
-    setFollowed(user.followers?.includes(profile._id));
-  }, [user.followers, profile._id]);
+    setFollowed(user.followers?.includes(profileData?._id) || false);
+  }, [user.followers, profileData]);
 
   const handleCreate = () => {
     setCreate(true);
@@ -51,51 +50,52 @@ const Profile = () => {
     setCreate(false);
   };
 
-  const handleFollow = async () => {
-    try {
-      if (followed) {
-        await axios.put(`http://localhost:8800/api/users/${profile._id}/unfollow`, { userId: user._id });
-      } else {
-        await axios.put(`http://localhost:8800/api/users/${profile._id}/follow`, { userId: user._id });
-      }
-    } catch (error) {
-      console.log(error);
+  const [followerscount, setFollowerscount] = useState(0);
+
+useEffect(() => {
+  if (profileData && profileData.followers) {
+    setFollowerscount(profileData.followers.length);
+  }
+}, [profileData]);
+
+useEffect(() => {
+  if (profileData?.followers) {
+    setFollowed(profileData.followers.includes(user._id));
+  }
+}, [user._id, profileData?.followers]);
+
+
+const handleFollow = async () => {
+  try {    
+    const response = await makeRequest.put(`/users/${pathname}/follow`, { userId: user._id });
+
+    if (response.status === 200) {      
+      setFollowed(!followed);
+      setFollowerscount(followed ? followerscount - 1 : followerscount + 1);
+    } else {      
+      console.error('Failed to follow/unfollow user:', response.data);
     }
-    setFollowed(!followed);
-  };
+  } catch (err) {
+    console.error('Error while following/unfollowing user:', err);
+  }
+};
 
-  const savedPosts = user.savedposts;
-
-  useEffect(() => {
-    const getcreateposts = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8800/api/posts/${pathname}`)
-        setcreatedposts(res.data)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    getcreateposts();
-  }, [pathname])
-
-  console.log(profile, "from created posts")
 
   return (
     <div className='profilecon'>
       <Navbar />
       <div className="profile">
-        {profile.profilePic ? (
-          // <img src={profile._id === user._id ? "../upload/" + profile.profilePic : profile.profilePic} alt="" />
-          <img src={ "../upload/" + profile.profilePic } alt="" />
+        {profilePic ? (
+          <img src={`../upload/${profilePic}`} alt="" />
         ) : (
-          <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" className='profilnonuserpic'/>
+          <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" className='profilnonuserpic' />
         )}
-        <h1>{profile.username}</h1>
-        <p>{profile.email}</p>
-        <span>{profile?.followers?.length} following</span>
+        <h1>{username}</h1>
+        <p>{email}</p>
+        <span>{followerscount} followers</span>
         {user._id === pathname ? (
           <div className="btns">
-            <button className='graybtn' onClick={()=>setshare(!share)}> Share</button>            
+            <button className='graybtn' onClick={() => setShare(!share)}> Share</button>
             <Link to={`/editprofile/${user._id}`}>
               <button className='graybtn'>Edit Profile</button>
             </Link>
@@ -103,8 +103,8 @@ const Profile = () => {
         ) : (
           <div className="btns">
             <button className='graybtn'>Message</button>
-            {profile.username !== user.username && (
-              <button className='redbtn' onClick={handleFollow}>
+            {username !== user.username && (
+              <button className={followed ? "graybtn" : "redbtn"} onClick={handleFollow}>
                 {followed ? "Unfollow" : "Follow"}
               </button>
             )}
@@ -123,19 +123,23 @@ const Profile = () => {
           <>
             {create && (
               <>
-              {createdposts && createdposts.length > 0 ? (
-                  <div className="createdposts">
-                    {createdposts.map((createpost) => (
-                      <Card src={createpost} key={createpost._id} />
-                    ))}
-                  </div>
+                {createdPostsLoading ? (
+                  <span>Loading..</span>
                 ) : (
-                  <div className="createe">
-                    <span>Nothing to show...yet! Pins you create will live here.</span>
-                    <Link to="/create"><button className='redbtn'>Create Pin</button></Link>
-                  </div>
+                  createdPostsData && createdPostsData.length > 0 ? (
+                    <div className="mycreatedposts">
+                      {createdPostsData.map((createpost) => (
+                        <Card src={createpost} key={createpost._id} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="createe">
+                      <span>Nothing to show...yet! Pins you create will live here.</span>
+                      <Link to="/create"><button className='redbtn'>Create Pin</button></Link>
+                    </div>
+                  )
                 )}
-              </>              
+              </>
             )}
             {saved && (
               <div className="saved">
@@ -160,19 +164,11 @@ const Profile = () => {
           </>
         ) : (
           <>
-            {create && <div className="createe">
-            {pathname !== user._id ? 
-            <div className="createdposts">              
-                {createdposts.map((createpost) => (
-                  <Card src={createpost} key={createpost._id} />                  
-                ))}
-              </div>
-              :""}
-              </div>}
-            {saved && <div className="saved">not current user</div>}
+            {create && <div className="createe">not the current user</div>}
+            {saved && <div className="saved">not the current user</div>}
           </>
         )}
-      </div>      
+      </div>
     </div>
   );
 }

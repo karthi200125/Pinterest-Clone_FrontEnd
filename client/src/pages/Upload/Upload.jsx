@@ -5,12 +5,16 @@ import { AuthContext } from '../../Context/Authcontext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
 import { useLocation } from 'react-router-dom';
+import { makeRequest } from '../../axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const Upload = () => {
   const { user } = useContext(AuthContext);
 
-const location = useLocation();
-const imgfromcreate = location.state;
+  const queryClient = useQueryClient();
+
+  const location = useLocation();
+  const imgfromcreate = location.state;
 
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,7 +25,7 @@ const imgfromcreate = location.state;
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await axios.post('http://localhost:8800/api/upload', formData);
+      const res = await makeRequest.post('/upload', formData);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -29,18 +33,27 @@ const imgfromcreate = location.state;
     }
   };
 
+  const mutation = useMutation((newpost) => {
+    return makeRequest.post('/posts', newpost)
+  }
+    , {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['posts'])
+      },
+    })
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(loading) return ;
     setLoading(true)
     try {
       let imgUrl = await upload();
-      await axios.post(`http://localhost:8800/api/posts`, {
+      mutation.mutate({
         p_title: title,
         p_desc: desc,
         userId: user._id,
         p_image: imgUrl,
-      });      
+      })    
       setFile("")
       setDesc("")
       setFile(null)
@@ -49,7 +62,7 @@ const imgfromcreate = location.state;
       console.error('Post create failed');
     }finally{
         setLoading(false)
-    }
+    }    
   };
 
   return (
@@ -63,23 +76,23 @@ const imgfromcreate = location.state;
         <div className="left">
           <div className="imgcon">
             <div className="iconhover pencil">
-            <input
-              type='file'
-              id='imageInput'
-              accept='image/*'
-              onChange={(e)=>setFile(e.target.files[0])}
-              style={{ display: 'none' }}
-            />
-            <label htmlFor='imageInput' className='uploadbox'>
-            <BiSolidPencil />
-            </label>              
+              <input
+                type='file'
+                id='imageInput'
+                accept='image/*'
+                onChange={(e) => setFile(e.target.files[0])}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor='imageInput' className='uploadbox'>
+                <BiSolidPencil />
+              </label>
             </div>
-            {file && <img src={URL.createObjectURL(file)} alt="" />} 
+            {file && <img src={URL.createObjectURL(file)} alt="" />}
           </div>
         </div>
         <div className="right">
           <form>
-            <div className="top">              
+            <div className="top">
               <label htmlFor="">Title</label>
               <input type="text" placeholder="Add a title" onChange={(e) => setTitle(e.target.value)} required />
               <label htmlFor="">Description</label>

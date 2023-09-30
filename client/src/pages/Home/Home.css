@@ -15,5 +15,9 @@
     columns: 5;
     column-gap: 0px;
     margin: 20px auto;    
+    /* display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    gap: 10px; */
 }
 

@@ -43,6 +43,8 @@
     gap: 20px;    
 }
 
+
+
 .c-s{
     width: 100%;    
     min-height: 100vh;
@@ -52,6 +54,7 @@
     position: relative;
     overflow: hidden;
     border: none;
+    
 }
 
 .slideactive{
@@ -63,7 +66,7 @@
     font-weight: 400;
     margin: 10px;    
     cursor: pointer;   
-    padding: 10px 0;        
+    padding: 10px 0;       
 }
 
 .c-s .createe{
@@ -84,11 +87,24 @@
     border-radius: 50%;
 }
 
-.c-s .createe .createdposts{    
-    width: 100%;    
-    height: max-content;    
-    columns: 4;
+ .mycreatedposts{    
+    position: absolute;    
+    width: 100%;
+    max-height: max-content;
+    top: 12%;
     padding: 0 40px;
+    columns: 5;
+    column-gap: 10px;    
+}
+
+.createdposts{
+    position: absolute;    
+    width: 100%;
+    max-height: max-content;
+    top: 12%;
+    padding: 0 40px;
+    columns: 5;
+    column-gap: 10px;    
 }
 
 
@@ -105,8 +121,10 @@
 }
 
 .profilesavedcard{    
-    width: 100%;
+    width: 80%;
     min-height: 100vh;
+    columns: 4;
+    column-gap: 10px;
 }
 
 
@@ -115,5 +133,6 @@
     display: flex;
     justify-content: space-between;
     padding: 0 50px;
-
+    position: absolute;
+    top: 0;
 }

@@ -33,6 +33,7 @@ const Register = ({ onClose, onLoginLink }) => {
     try {
       const res = await axios.post("http://localhost:8800/api/auth/register", inputs);
       console.log("register sucess")
+      onLoginLink(false);
     } catch (err) {
       console.log(err)      
     }
