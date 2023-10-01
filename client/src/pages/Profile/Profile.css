@@ -43,96 +43,70 @@
     gap: 20px;    
 }
 
-
-
-.c-s{
+.cs-maincon{
     width: 100%;    
-    min-height: 100vh;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    border: none;
-    
+    display: flex;   
+    flex-direction: column; 
+    align-items: center;
 }
 
-.slideactive{
-    border-bottom: 3px solid black;       
-}
-
-.c-s span{
-    font-size: 17px;
-    font-weight: 400;
-    margin: 10px;    
-    cursor: pointer;   
-    padding: 10px 0;       
-}
-
-.c-s .createe{
-    position: absolute;
-    bottom: -80px;
-    left: 0;    
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;    
-    flex-direction: column;    
-}
-
-.profilnonuserpic{
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
- .mycreatedposts{    
-    position: absolute;    
-    width: 100%;
-    max-height: max-content;
-    top: 12%;
-    padding: 0 40px;
-    columns: 5;
-    column-gap: 10px;    
-}
-
-.createdposts{
-    position: absolute;    
-    width: 100%;
-    max-height: max-content;
-    top: 12%;
-    padding: 0 40px;
-    columns: 5;
-    column-gap: 10px;    
-}
-
-
-.c-s .saved{
-    position: absolute;
-    bottom: -80px;
-    left: 0;    
-    min-height: max-content;
-    width: 100%;
+.cs-maincon .c-s{
     display: flex;
     align-items: center;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 20px;
 }
 
-.profilesavedcard{    
-    width: 80%;
-    min-height: 100vh;
-    columns: 4;
-    column-gap: 10px;
+.cs-maincon .c-s span{
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 0;    
+    cursor: pointer;        
 }
 
+.slideactive{    
+    border-bottom: 3px solid black;
+}
 
-.c-s .saved span{
+.cs-con{
+    width: 100%;    
+    height: max-content;
+    margin-top: 10px;    
+    padding: 0 40px;
+}
+
+.cs-con .createcon , .cs-con .savedcon{
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 50px;
-    position: absolute;
-    top: 0;
+    height: max-content;
+    columns: 5;
+    column-gap: 0px;
+    margin: 20px auto;        
+    pad: 10px;    
 }
+
+.savedconicons{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nosaved{    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.notceated {
+width: 100%;
+display: flex;
+align-items: center;
+flex-direction: column;
+gap: 20px;
+}
+
+
+
+

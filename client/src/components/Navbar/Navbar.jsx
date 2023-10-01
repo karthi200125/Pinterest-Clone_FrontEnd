@@ -5,19 +5,37 @@ import { BiSolidBell } from 'react-icons/bi'
 import { AiFillMessage } from 'react-icons/ai'
 import { FaSearch } from 'react-icons/fa'
 import More from '../More/More'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from '../../Context/Authcontext'
 
 
 const Navbar = () => {
-    const [moreopen, setmoreopen] = useState(false)
-
+    const [moreopen, setmoreopen] = useState(false)    
+    const [searchQuery, setSearchQuery] = useState("");
+    const [ss , setss] = useState(searchQuery || "")
     const location = useLocation();
-    const pathname = location.pathname
+    const pathname = location.pathname;
+    const navigate = useNavigate(); 
 
-    console.log(pathname)
-    const { user } = useContext(AuthContext)
+    const {user } = useContext(AuthContext)
+
+    const handleSearchInputChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+
+        if (searchQuery.trim() === '') {
+            navigate("/home"); 
+            setss(ss)
+        } else {
+            navigate(`/home?search=${searchQuery}`); 
+        }
+    };
+
+    console.log("from navbar",user)
 
     return (
         <div className='navbar'>
@@ -25,23 +43,23 @@ const Navbar = () => {
                 <BsPinterest size={30} />
                 <ul>
                     <Link to='/home' className={pathname === '/home' ? "active" : ""}><li>Home</li></Link>
-                    <Link to="/explore" className={pathname === '/explore' ? "active" : ""}><li>Explore</li></Link>
+                     <li className={pathname === '' ? "active" : ""}>Explore</li>
                     <Link to='/create' className={pathname === '/create' ? "active" : ""}><li>Create</li></Link>
                 </ul>
             </div>
-            <div className="search">
+            <form className="search" onSubmit={handleSearchSubmit}>
                 <FaSearch />
-                <input type="text" placeholder='Search' />
-            </div>
+                <input type="text" placeholder='Search by post name...' value={searchQuery} onChange={handleSearchInputChange} />
+            </form>
             <div className="right">
                 <div className='iconhovercon'><BiSolidBell size={27} /><span className='iconname'>Notifications</span></div>
                 <div className='iconhovercon'><AiFillMessage size={27} /><span className='iconname'>Messages</span></div>
                 <Link to={`/profile/${user._id}`}>
                     <div className='iconhovercon'>
-                        {user.profilePic ? 
-                        <img src={"../upload/" + user.profilePic} alt="" />
-                        :
-                        <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" />
+                        {user.profilePic ?
+                            <img src={"../upload/" + user.profilePic} alt="" />
+                            :
+                            <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" />
                         }
                         <span className='iconname'>Your Profile</span>
                     </div></Link>

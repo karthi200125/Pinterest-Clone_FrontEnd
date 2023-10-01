@@ -63,7 +63,7 @@ const Login = ({ onClose, onRegLink }) => {
             <div className='inputbox'>Google</div>
           </div>
         </div>
-        <div className='bottom'>
+        <div className='btm'>
           <p>
             By continuing, you agree to Pinterest's<br /> <b>Terms of Service</b> and acknowledge you've read our <b> <br />Privacy Policy. Notice at collection</b>
           </p>

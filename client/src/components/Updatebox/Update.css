@@ -48,12 +48,13 @@
 }
 
 .update span {
-    border-radius: 12px;
-    text-align: center;
-    font-weight: 700;
-    text-transform: capitalize;
+    padding: 10px;
+    margin-bottom: 10px;
     width: 90%;
+    border-radius: 15px;
+    text-align: center;
 }
+
 
 .update span:hover {
     background-color: black;

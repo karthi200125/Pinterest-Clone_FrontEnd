@@ -44,7 +44,7 @@ const Upload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(loading) return ;
+    if (loading) return;
     setLoading(true)
     try {
       let imgUrl = await upload();
@@ -53,16 +53,16 @@ const Upload = () => {
         p_desc: desc,
         userId: user._id,
         p_image: imgUrl,
-      })    
+      })
       setFile("")
       setDesc("")
       setFile(null)
       console.log('Post created successfully');
     } catch (error) {
       console.error('Post create failed');
-    }finally{
-        setLoading(false)
-    }    
+    } finally {
+      setLoading(false)
+    }
   };
 
   return (
@@ -70,7 +70,7 @@ const Upload = () => {
       <Navbar />
       <div className="publish">
         <span>Changes Stored!</span>
-        <button onClick={handleSubmit}>{loading ? "publishing..." : "Publish"}</button>
+        <button onClick={handleSubmit} className='redbtn'>{loading ? "publishing..." : "Publish"}</button>
       </div>
       <div className="upload">
         <div className="left">

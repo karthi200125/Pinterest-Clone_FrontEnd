@@ -29,15 +29,19 @@ const Singleimg = () => {
 
     const comments = false;
 
-    useEffect(() => {
-        if (user.savedposts.some(savedPost => savedPost.postId === data._id)) {
-            setSaved(true);
+    useEffect(() => {        
+        if (Array.isArray(user.savedposts)) {
+          const isSaved = user.savedposts.some(savedPost => savedPost.postId === data._id);
+          setSaved(isSaved);
+        } else {
+          setSaved(false); 
         }
-    }, [user.savedposts, data._id]);
+      }, [user.savedposts, data._id]);
+      
 
-    useEffect(() => {
-        setFollowed(user.followers?.includes(pathname));
-    }, [user.followers, pathname]);
+    // useEffect(() => {
+    //     setFollowed(user.followers?.includes(pathname));
+    // }, [user.followers, pathname]);
 
     const handleSaveClick = async () => {
         try {
@@ -55,20 +59,7 @@ const Singleimg = () => {
     useEffect(()=>{
         setLiked(data.p_likes.includes(user._id))
     },[user._id,data.p_likes])
-    
-    const handleFollow = async () => {
-        try {
-            if (followed) {
-                await axios.put(`http://localhost:8800/api/users/${pathname}/unfollow`, { userId: user._id });
-            } else {
-                await axios.put(`http://localhost:8800/api/users/${pathname}/follow`, { userId: user._id });
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        setFollowed(!followed);
-    };
-
+        
     
     const [likecount , setLikeCount] = useState(data.p_likes.length)    
 
@@ -80,12 +71,7 @@ const Singleimg = () => {
         } catch (err) {
             console.log(err);
         }
-    };
-
-    
-    
-
-    console.log("post likes", likecount);
+    };            
 
     return (
         <div className='singlecon'>
@@ -120,13 +106,9 @@ const Singleimg = () => {
                                     {data.userimg ?
                                         <img src={"/upload/" + data.userimg} alt="" className='img fnameimg' />
                                         : <CiUser size={30} />}
-                                    <h1>{data.username}<p>{data.folloers} following</p></h1>
+                                    <h1>{data.username}<p> following</p></h1>
                                 </div>
-                            </Link>
-                            <button className={`redbtn ${followed ? "unfollow-btn" : "follow-btn"}`} onClick={handleFollow}>
-                                {followed ? "Unfollow" : "Follow"}
-                            </button>
-
+                            </Link>                            
                         </div>
                         <div className="cud">
                             <span>Comments <div className="iconhover" onClick={() => setCommentOpen(!commentopen)}>{commentopen ? <MdKeyboardArrowUp /> : <BsChevronDown />}</div></span>

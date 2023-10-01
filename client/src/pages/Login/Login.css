@@ -122,27 +122,28 @@ form {
     font-size: 15px;
     font-weight: bold;
     text-align: center;
-    color: black;
+    color: black;    
 }
 
 
-.bottom {
+.btm {
     height: 100%;    
     text-align: center;
-    margin-top: 10px;
+    margin-top: 10px;    
+    
 }
 
-.bottom p{
+.btm p{
     font-size: 10px;
     color: rgba(0, 0, 0, 0.534);                
-    line-height: 15px;
+    line-height: 15px;    
 }
 
-.bottom p b{
+.btm p b{
     color: black;    
     cursor: pointer;
 }
-.bottom p b:hover{
+.btm p b:hover{
     text-decoration: underline;
 }
 
@@ -155,7 +156,7 @@ form {
     margin-bottom: 10px;
 }
 
-.bottom span{
+.btm span{
     font-size: 10px;
     font-weight: 700;
 }
@@ -172,15 +173,23 @@ form {
     flex-direction: row;
     width: 100%;    
     justify-content: space-between;
-    align-items: center;
-    border: 1px solid rgba(128, 128, 128, 0.300);
+    align-items: center;    
     border-radius: 10px;
     padding: 0 10px;  
+    position: relative;    
+    width: 100%;
 }
 
 .passwordbox input{
-    border: none;  
+    border: none;      
+    width: 100%;    
+    left: 0;    
+    width: 100%;
+    position: relative;    
 }
 .passwordbox>:nth-child(2){
     cursor: pointer;
+    position: absolute;
+    right: 7%;
+
 }

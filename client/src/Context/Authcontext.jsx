@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useReducer, createContext, useEffect } from "react";
 import { makeRequest } from "../axios";
 
-// Define your initial state without querying data
 const INITIAL_STATE = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   isFetching: false,
   error: false,
+
 };
 
 export const AuthContext = createContext(INITIAL_STATE);
@@ -37,20 +37,32 @@ export const AuthContextProvider = ({ children }) => {
           error: action.payload,
         };
       case "LOGOUT":
-        localStorage.removeItem("user"); // Remove user data from local storage
+        localStorage.removeItem("user");
         return {
           user: null,
           isFetching: false,
           error: false,
         };
+
       case "UPDATE_PROFILE":
-        // Update user data in local storage when the profile is updated
-        const updatedUser = { ...state.user, ...action.payload };
+        const updatedUser = { ...state.user };
+
+        if (action.payload.savedposts !== undefined) {
+          updatedUser.savedposts = action.payload.savedposts;
+        }
+
+        if (action.payload.followers !== undefined) {
+          updatedUser.followers = action.payload.followers;
+        }
+
         localStorage.setItem("user", JSON.stringify(updatedUser));
+
         return {
           ...state,
           user: updatedUser,
         };
+
+
       default:
         return state;
     }
