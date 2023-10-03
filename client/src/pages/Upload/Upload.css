@@ -125,3 +125,18 @@ textarea:focus {
     outline: none;
     border-color: skyblue !important; 
   }
+
+  @media screen and (max-width:767px) {
+    .upload{
+        display: flex;
+        flex-direction: column;
+        align-items: center;        
+        width: 100% !important;        
+    }
+    .upload .right form{
+        width: 100% !important;                
+    }
+    .details{
+        display: none;
+    }
+  }

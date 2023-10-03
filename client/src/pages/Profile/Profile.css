@@ -107,6 +107,29 @@ flex-direction: column;
 gap: 20px;
 }
 
-
+@media screen and (max-width:767px){
+        
+    .cs-con{
+        width: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cs-con .createcon , .cs-con .savedcon {        
+        columns: 2;
+        width: 380px;
+        column-gap: 10px;
+    }    
+}
+/* @media screen and (max-width:540px){
+    .cs-con .createcon , .cs-con .savedcon{
+        columns: 2;
+    }
+}
+@media screen and (max-width:767px){
+    .cs-con .createcon , .cs-con .savedcon{
+        columns: 3;
+    }
+} */
 
 

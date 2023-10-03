@@ -11,55 +11,54 @@
     z-index: 1000;
     top: 0;
     left: 0;
-}
-
-.navbar .left {
+  }
+  
+  .navbar .left {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-}
-
-.navbar .left ul {
+  }
+  
+  .navbar .left ul {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
-}
-
-.active{
+  }
+  
+  .active {
     padding: 18px;
     border-radius: 30px;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
     background-color: black;
-    color: white;    
-}
-
-.right {
+    color: white;
+  }
+  
+  .right {
     display: flex;
     flex-direction: row;
-    align-items: center;    
-}
-
-
-.iconhovercon{
-    padding: 10px;    
+    align-items: center;
+  }
+  
+  .iconhovercon {
+    padding: 10px;
     cursor: pointer;
     border-radius: 50%;
     position: relative;
     margin-left: -10px;
-}
-
-.iconhovercon img{
-    width: 23px;
-    height: 23px;
+  }
+  
+  .iconhovercon img {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
-}
-
-.iconname{
+  }
+  
+  .iconname {
     position: absolute;
     bottom: -40px;
     left: -30%;
@@ -72,48 +71,64 @@
     width: 82px;
     text-align: center;
     z-index: 100;
-}
-
-.iconhovercon:hover .iconname{
-    display: block;    
-}
-
-
-.iconhovercon>:nth-child(1){
+  }
+  
+  .iconhovercon:hover .iconname {
+    display: block;
+  }
+  
+  .iconhovercon>:nth-child(1) {
     color: rgba(0, 0, 0, 0.64);
-}
-
-.iconhovercon:hover{
+  }
+  
+  .iconhovercon:hover {
     background-color: rgba(0, 0, 0, 0.070);
-}
-
-
-
-.search{
+  }
+  
+  .search {
     width: 61%;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.070);    
-    border-radius: 30px;    
+    background-color: rgba(0, 0, 0, 0.070);
+    border-radius: 30px;
     font-weight: bold;
     display: flex;
-    align-items: center;    
+    align-items: center;
     padding-left: 10px;
     height: 50px;
-}
-
-.search>:nth-child(1){
+  }
+  
+  .search>:nth-child(1) {
     cursor: pointer;
     color: rgba(0, 0, 0, 0.64);
-}
-
-.search input{
+  }
+  
+  .search input {
     border: none !important;
     padding: 15px;
-    width: 95%;        
+    width: 95%;
     font-size: 15px;
     background-color: transparent;
-}
-
-.search input:focus{
+  }
+  
+  .search input:focus {
     outline: none;
-}
+  }
+  
+  .mobnav {
+    display: none;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .navbar {
+      top: -1px;
+      position: fixed;
+    }
+    .navbar .left ul {
+      display: none;
+    }
+    .right>:nth-child(1),
+    .navbar .right>:nth-child(2) {
+      display: none;
+    }
+  }
+  

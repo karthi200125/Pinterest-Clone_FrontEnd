@@ -5,10 +5,12 @@ import Navbar from '../../components/Navbar/Navbar';
 import { BiSolidRightArrowAlt } from 'react-icons/bi'
 import { makeRequest } from '../../axios'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {  useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
   const { user, dispatch } = useContext(AuthContext);
   const queryClient = useQueryClient();
+  const navigate =  useNavigate();
 
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState(user.username);
@@ -51,7 +53,7 @@ const EditProfile = () => {
         profilePic: imgUrl
       });
       dispatch({ type: "UPDATE_PROFILE", payload: { email, username, profilePic: imgUrl } });
-      console.log("Update success");
+      navigate(`/profile/${user._id}`)      
     } catch (error) {
       console.error("Update Failed");
     } finally {

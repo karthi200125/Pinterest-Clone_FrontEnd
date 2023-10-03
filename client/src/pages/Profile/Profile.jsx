@@ -9,29 +9,34 @@ import Navbar from '../../components/Navbar/Navbar';
 import Card from '../../components/Card/Card';
 import Share from '../../components/Share/Share';
 import { makeRequest } from '../../axios';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Loading from '../../components/Loading/Loading';
 
 const Profile = () => {
   const [create, setCreate] = useState(true);
   const [saved, setSaved] = useState(false);
-  const [share, setShare] = useState(false);
-  const [followed, setFollowed] = useState(false);
+  const [share, setShare] = useState(false);  
 
   const location = useLocation();
   const pathname = location.pathname.split('/').pop();
   const { user , dispatch} = useContext(AuthContext);
 
-  console.log("user details",user)
-
   const { isLoading: profileLoading, error: profileError, data: profileData } = useQuery(['profile', pathname], async () => {
+    if (!pathname) {
+      return {}; 
+    }
+  
     const res = await makeRequest.get(`/users/${pathname}`);
     return res.data;
   });
-
+  
   const [filteredPosts, setFilteredPosts] = useState([]);
-
+  
   const { isLoading: createdPostsLoading, error: createdPostsError, data: createdPostsData } = useQuery(['posts', pathname], async () => {
+    if (!pathname) {
+      return []; 
+    }
+  
     const res = await makeRequest.get(`/posts/allposts`);
     const allPosts = res.data;
     const filteredPosts = allPosts.filter(post => post.userId === pathname);
@@ -39,18 +44,27 @@ const Profile = () => {
     return filteredPosts;
   });
 
-  const savedPosts = profileData?.savedposts;
+
+  const { isLoading, error, data } = useQuery(["savedposts"], async() =>
+    await makeRequest.get(`posts/allposts/savedposts/${pathname}`).then((res) => {
+      return res.data;
+    })
+  );    
 
   const profilePic = profileData?.profilePic || '';
   const username = profileData?.username || '';
   const email = profileData?.email || '';
 
+  const [followed, setFollowed] = useState(false);
+
+  // Cheking is that user folllwed or not
   useEffect(() => {    
-    const isFollowing = Array.isArray(user?.followers) && user.followers.includes(profileData?._id);
+    const isFollowing = Array.isArray(user?.followers) && user.followers.includes(profileData?._id);    
     setFollowed(isFollowing || false);
   }, [user.followers, profileData]);
   
 
+  // cerate , saved open and close
   const handleCreate = () => {
     setCreate(true);
     setSaved(false);
@@ -82,11 +96,10 @@ const Profile = () => {
   
       if (response.status === 200) {
         setFollowed(!followed);
-        setFollowerscount(followed ? followerscount - 1 : followerscount + 1);
-        dispatch({ type: "UPDATE_PROFILE", payload: { followers:  pathname} });
-      } else {
-        console.error('Failed to follow/unfollow user:', response.data);
-        dispatch({ type: "UPDATE_PROFILE", payload: { followers: pathname} });
+        setFollowerscount(followed ? followerscount - 1 : followerscount + 1);        
+        dispatch({ type: "FOLLOW", payload: { followed:  pathname} }) 
+      } else {        
+        dispatch({ type: "FOLLOW", payload: { followed:  pathname} }) 
       }
       
       console.log("Update success");
@@ -94,10 +107,6 @@ const Profile = () => {
       console.error('Error while following/unfollowing user:', err);
     }
   };
-
-  
-console.log("from profile",user)
-
 
   return (
     <div className='profilecon'>
@@ -159,9 +168,9 @@ console.log("from profile",user)
 
           {saved &&
             <div className="saved">
-              {savedPosts && savedPosts.length > 0 ? (
+              {data && data?.length > 0 ? (
                 <div className='savedcon'>
-                  {savedPosts.map((save) => (
+                  {data.map((save) => (
                     <Card src={save} key={save._id} unsave={saved}/>
                   ))}
                 </div>

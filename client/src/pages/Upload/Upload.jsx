@@ -94,11 +94,12 @@ const Upload = () => {
           <form>
             <div className="top">
               <label htmlFor="">Title</label>
-              <input type="text" placeholder="Add a title" onChange={(e) => setTitle(e.target.value)} required />
+              <input type="text" placeholder="Add a title" value={title} onChange={(e) => setTitle(e.target.value)} required />
               <label htmlFor="">Description</label>
               <textarea
                 placeholder="Write a detailed description for your Pin here or add specific list below"
                 className="textarea"
+                value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 required
               ></textarea>

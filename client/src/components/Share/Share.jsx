@@ -1,38 +1,42 @@
 import React from 'react';
+import { FaTimes } from 'react-icons/fa';
+import './Share.css';
 import {
-    FacebookShareButton,
-    EmailShareButton,
-    WhatsappShareButton,
-    TwitterShareButton,
+  FacebookShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TelegramShareButton,
+  WhatsappIcon,
+  PinterestShareButton,
+  PinterestIcon,
+  TelegramIcon,
 } from 'react-share';
-import { FaFacebook, FaEnvelope, FaWhatsapp, FaTwitter } from 'react-icons/fa';
 
-const Share = ({ shareUrl, title }) => {
-    return (
-        <div>
-            <h2>Share this post:</h2>
-            
-            {/* Facebook */}
-            <FacebookShareButton url={shareUrl} quote={title}>
-                <FaFacebook size={32} style={{color:"#1877F2"}}/> 
-            </FacebookShareButton>
+const Share = ({ imageUrl, shareClose }) => {
+  const shareUrl = imageUrl;
 
-            {/* Mail */}
-            <EmailShareButton url={shareUrl} subject={title}>
-                <FaEnvelope size={32} style={{color:"red"}}/> 
-            </EmailShareButton>
+  return (
+    <div className='sharecon'>
+      <FaTimes size={20} onClick={() => shareClose(false)} />
+      <div className='shareicons'>
+        <FacebookShareButton url={shareUrl}>
+          <FacebookIcon size={32} round />
+        </FacebookShareButton>
 
-            {/* WhatsApp */}
-            <WhatsappShareButton url={shareUrl} title={title}>
-                <FaWhatsapp size={32} style={{color:"#25D366"}}/> 
-            </WhatsappShareButton>
+        <WhatsappShareButton url={shareUrl}>
+          <WhatsappIcon size={32} round />
+        </WhatsappShareButton>
 
-            {/* Twitter */}
-            <TwitterShareButton url={shareUrl} title={title}>
-                <FaTwitter size={32} style={{color:"#1DA1F2"}}/> 
-            </TwitterShareButton>
-        </div>
-    );
+        <TelegramShareButton url={shareUrl}>
+          <TelegramIcon size={32} round />
+        </TelegramShareButton>
+
+        <PinterestShareButton url={shareUrl}>
+          <PinterestIcon size={32} round />
+        </PinterestShareButton>
+      </div>
+    </div>
+  );
 };
 
 export default Share;

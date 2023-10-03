@@ -1,67 +1,55 @@
-import React, { useContext, useState, useEffect } from 'react';
-import './Card.css';
-import { RiUpload2Line } from 'react-icons/ri';
+import React, { useContext, useEffect, useState } from 'react';
 import { FiMoreHorizontal } from 'react-icons/fi';
-import { AuthContext } from '../../Context/Authcontext';
-import axios from 'axios';
+import { RiUpload2Line } from 'react-icons/ri';
 import { Link, useLocation } from 'react-router-dom';
-import noimage from '../../assets/notimage.png';
-import Update from '../Updatebox/update';
+import { AuthContext } from '../../Context/Authcontext';
 import { makeRequest } from '../../axios';
+import Share from '../Share/Share';
+import Update from '../Updatebox/update';
+import './Card.css';
 
-const Card = ({ src , unsave}) => {
+const Card = ({ src, unsave }) => {
   const { user, dispatch } = useContext(AuthContext);
   const [saved, setSaved] = useState(false);
   const [share, setShare] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [imageExists, setImageExists] = useState(true);
-
   const location = useLocation();
   const pathname = location.pathname.split('/').pop();
 
-  useEffect(() => {    
+  useEffect(() => {
     if (Array.isArray(user.savedposts)) {
       const isSaved = user.savedposts.some(savedPost => savedPost.postId === src._id);
       setSaved(isSaved);
     } else {
-      setSaved(false); 
+      setSaved(false);
     }
   }, [user.savedposts, src._id]);
 
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = `/upload/${src.p_image}`;
-    img.onload = () => setImageExists(true);
-    img.onerror = () => setImageExists(false);
-  }, [src.p_image]);
-
-  const toggleSave = async (e) => {
-    // e.stopPropagation();
+  const toggleSave = async () => {
     try {
-      let updatedSavedposts = [];
-      if (Array.isArray(user.savedposts)) {
-        updatedSavedposts = saved ? user.savedposts.filter(savedPost => savedPost.postId !== src._id) : [...user.savedposts, { postId: src._id }];
-      } else {
-        updatedSavedposts = [{ postId: src._id }]; 
-      }
-      
-      await makeRequest.post(`/users/${saved ? 'unsavepost' : 'savepost'}`, { userId: user._id, postId: src._id, postImage: src.p_image });
+      const updatedSavedposts = Array.isArray(user.savedposts)
+        ? (saved
+            ? user.savedposts.filter(savedPost => savedPost.postId !== src._id)
+            : [...user.savedposts, { userId: user._id, postId: src._id, postImage: src.p_image }])
+        : [{ userId: user._id, postId: src._id, postImage: src.p_image }];
+
+      await makeRequest.post(`/users/${saved ? 'unsavepost' : 'savepost'}`, {
+        userId: user._id,
+        postId: src._id,
+        postImage: src.p_image
+      });
       setSaved(!saved);
-      dispatch({ type: "UPDATE_PROFILE", payload: { savedposts: updatedSavedposts } });
+      dispatch({ type: "SAVEDPOSTS", payload: { savedposts: updatedSavedposts } });
     } catch (err) {
       console.error(err);
     }
   }
-  
 
-  const handleUpdate = (e) => {
-    // e.stopPropagation();
+  const handleUpdate = () => {
     setUpdate(!update);
   }
 
-  const handleShare = (e) => {
-    // e.stopPropagation();
+  const handleShare = () => {
     setShare(!share);
   }
 
@@ -69,14 +57,10 @@ const Card = ({ src , unsave}) => {
   const img = src.postImage || src.p_image;
 
   return (
-    <div className="card" key={id}>            
-        <Link to={`/single/${id}`} state={src}>
-          <img
-            src={"/upload/" + img}
-            alt={src.username}
-            className="card-image"
-          />
-        </Link>      
+    <div className="card" key={id}>
+      <Link to={`/single/${id}`} state={src}>
+        <img src={"/upload/" + img} alt={src.username} className="card-image" />
+      </Link>
       {pathname === "home" && (
         <button className={saved ? "saved-btn" : "save-button"} onClick={toggleSave}>
           {!saved ? "Save" : "Unsave"}
@@ -88,7 +72,12 @@ const Card = ({ src , unsave}) => {
       </div>
       {update && (
         <div className="delete">
-          <Update CLICK={() => setUpdate(false)} data={src} unsave={unsave}/>
+          <Update updateClose={setUpdate} data={src} unsave={unsave} />
+        </div>
+      )}
+      {share && (
+        <div className="delete">
+          <Share imageUrl={src.p_image} shareClose={setShare} />
         </div>
       )}
     </div>

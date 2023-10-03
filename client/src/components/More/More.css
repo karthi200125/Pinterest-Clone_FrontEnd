@@ -1,4 +1,4 @@
-.more{
+.more {
     border: 2px solid rgba(0, 0, 0, 0.233);
     position: absolute;
     right: 3%;
@@ -9,9 +9,9 @@
     padding: 10px;
     background-color: white;
     z-index: 11;
-}
-
-.more .infobox{
+  }
+  
+  .more .infobox {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,43 +22,37 @@
     margin-top: 10px;
     gap: 10px;
     cursor: pointer;
-}
-
-.details{
+  }
+  
+  .details {
     display: flex;
-    flex-direction: column;        
-    gap: 5px;    
-}
-
-.infobox .details h1{
-    font-size: 16px;    
-}
-
-.infobox .details span{
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .infobox .details h1 {
+    font-size: 16px;
+  }
+  
+  .infobox .details span {
     font-size: 13px;
     color: rgba(0, 0, 0, 0.595);
-}
-
-.more p{
+  }
+  
+  .more p {
     font-size: 12px;
     margin-top: 15px;
-}
-
-.more .infobox img{
+  }
+  
+  .more .infobox img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-}
-.morepropic{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.logout{    
-    width: 100%;    
+  }
+  
+  .logout {
+    width: 100%;
     border-radius: 10px;
     padding: 0 20px;
     text-align: start;
@@ -68,8 +62,27 @@
     justify-content: space-between;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.070);
-}
-
-.logout:hover{
+  }
+  
+  .logout:hover {
     background-color: rgba(0, 0, 0, 0.120);
-}
+  }
+  
+  .mobnav {
+    display: none;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .more {
+      width: 95%;
+      padding: 20px;
+    }
+    .mobnav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+    }
+  }
+  

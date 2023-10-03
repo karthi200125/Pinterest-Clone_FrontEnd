@@ -1,0 +1,44 @@
+.commentbox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .commentbox .t {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    position: relative;
+  }
+  
+  .commentbox .t > :nth-child(3) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  
+  .commentbox .t img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .commentbox .t span {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  .commentbox p {
+    width: 100%;
+    height: max-content;
+  }
+  

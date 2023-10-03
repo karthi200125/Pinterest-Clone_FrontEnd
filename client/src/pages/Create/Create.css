@@ -153,7 +153,20 @@
     background-color: transparent;
 }
 
-
+@media screen and (max-width:767px){
+    .createbox{
+        width: 360px;
+        height: 90vh;
+    }
+    .createbox .btm{
+        flex-direction: column;
+        height: 80px;
+        padding: 10px;
+    }
+    .uploadbox{
+        
+    }
+}
 
 
 

@@ -38,7 +38,7 @@
     border-radius: 15px;
 }
 
-.update a:hover{
+.update a:hover {
     background-color: black;
     color: white;
 }
@@ -54,7 +54,6 @@
     border-radius: 15px;
     text-align: center;
 }
-
 
 .update span:hover {
     background-color: black;

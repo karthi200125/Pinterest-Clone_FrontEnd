@@ -1,32 +1,33 @@
-
 .card {
     width: 230px;
-    max-height: 500px;    
+    max-height: 500px;
     min-height: 200px;
     border-radius: 20px;
     overflow: hidden;
     position: relative;
     margin-bottom: 10px;
-}
-
-.card:hover {
+    transition: background-color 0.5s;
+  }
+  
+  .card:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.8);    
-}
-
-.card-image {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .card-image {
     width: 100%;
     height: auto;
     object-fit: cover;
     z-index: -1;
     border-radius: 20px;
-}
-
-.card:hover .card-image{
+  }
+  
+  .card:hover .card-image {
     filter: brightness(0.5);
-}
-
-.save-button ,.saved-btn{
+  }
+  
+  .save-button,
+  .saved-btn {
     position: absolute;
     top: 5%;
     right: 5%;
@@ -38,30 +39,28 @@
     color: white;
     font-weight: 700;
     opacity: 0;
-    transition: opacity 0.5s;
-}
-.save-button:hover{
+    transition: opacity 0.5s, background-color 0.5s;
+  }
+  
+  .save-button:hover {
     background-color: #9e041bd8;
-}
-
-.card:hover .save-button ,.card:hover .saved-btn{
+  }
+  
+  .card:hover .save-button,
+  .card:hover .saved-btn {
     opacity: 1;
-}
-
-.saved-btn{
-  background-color: black !important;
-}
-
-.saved-btn:hover{
+  }
+  
+  .saved-btn {
+    background-color: black !important;
+  }
+  
+  .saved-btn:hover {
     background-color: white !important;
     color: black !important;
-}
-
-.non-clickable{
-    pointer-events: none;
-}
-
-.bottom {
+  }
+  
+  .bottom {
     position: absolute;
     bottom: 0;
     right: 5%;
@@ -72,41 +71,54 @@
     gap: 10px;
     opacity: 0;
     transition: opacity 0.5s;
-}
-
-.card:hover .bottom {
+  }
+  
+  .card:hover .bottom {
     opacity: 1;
-}
-
-.bottom .cardiconcon {
+  }
+  
+  .bottom .cardiconcon {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.7);
     display: flex;
     align-items: center;
-    justify-content: center;    
-}
-
-.bottom .cardiconcon:hover {
+    justify-content: center;
+    transition: background-color 0.5s;
+  }
+  
+  .bottom .cardiconcon:hover {
     background-color: white;
-    transition: 0.5s;
-}
-
-.updatebox{
+  }
+  
+  .updatebox {
     position: absolute;
     top: 100%;
     background-color: red;
     width: 250px;
     height: 150px;
-}
-
-.delete{
+  }
+  
+  .delete {
     position: absolute;
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 100%;    
+    height: 100%;
     border-radius: 20px;
     z-index: 999;
-}
+  }
+  
+  @media screen and (max-width: 767px) {
+    .card {
+      width: 200px;
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    .card {
+      width: 170px;
+    }
+  }
+  

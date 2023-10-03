@@ -38,6 +38,8 @@ const Home = () => {
         }
     }, [searchQuery, data]);
 
+    console.log("from home user id",user)
+
     return (
         <div className='home'>
             <Navbar />
