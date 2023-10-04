@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './LandingPageNavbar.css';
+import { BsPinterest } from 'react-icons/bs';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
-import { BsPinterest } from 'react-icons/bs';
+import './LandingPageNavbar.css';
 
 const LandingPageNavbar = () => {
   const [loginopen, setloginopen] = useState(false);
@@ -21,7 +21,7 @@ const LandingPageNavbar = () => {
   return (
     <div className='LandingPageNavbar'>
       <div className="left">
-        <BsPinterest size={35} style={{color:'#E60023'}}/>
+        <BsPinterest size={35} style={{ color: '#E60023' }} />
         <h1 className="brand" onClick={() => handleLinkClick(true)}>Pinterest</h1>
       </div>
       <div className="right">

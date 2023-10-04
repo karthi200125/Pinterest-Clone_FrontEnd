@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
-import './Navbar.css';
-import { BsPinterest, BsChevronDown } from 'react-icons/bs';
-import { BiSolidBell } from 'react-icons/bi';
 import { AiFillMessage } from 'react-icons/ai';
+import { BiSolidBell } from 'react-icons/bi';
+import { BsChevronDown, BsPinterest } from 'react-icons/bs';
 import { FaSearch } from 'react-icons/fa';
-import More from '../More/More';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Authcontext';
+import More from '../More/More';
+import './Navbar.css';
 
 const Navbar = () => {
   const [moreopen, setmoreopen] = useState(false);
@@ -33,10 +33,10 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className="left">
-        <Link to="/home"><BsPinterest size={30} style={{color:'#E60023'}}/></Link>
+        <Link to="/home"><BsPinterest size={30} style={{ color: '#E60023' }} /></Link>
         <ul>
           <Link to='/home' className={pathname === '/home' ? "active" : ""}><li>Home</li></Link>
-          <li className={pathname === '' ? "active" : ""}>Explore</li>
+          <Link to='/explore'><li className={pathname === '/explore' ? "active" : ""}>Explore</li></Link>
           <Link to='/create' className={pathname === '/create' ? "active" : ""}><li>Create</li></Link>
         </ul>
       </div>

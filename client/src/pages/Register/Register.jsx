@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import './Register.css';
-import { BsPinterest } from 'react-icons/bs';
-import { AiOutlineClose, AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import axios from 'axios';
-import { AuthContext } from '../../Context/Authcontext';
+import { AiFillEye, AiFillEyeInvisible, AiOutlineClose } from 'react-icons/ai';
 import { BiSolidError } from 'react-icons/bi';
+import { BsPinterest } from 'react-icons/bs';
+import { AuthContext } from '../../Context/Authcontext';
+import { makeRequest } from '../../axios';
+import './Register.css';
 
 const Register = ({ onClose, onLoginLink }) => {
   const [inputs, setInputs] = useState({
@@ -31,7 +31,7 @@ const Register = ({ onClose, onLoginLink }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();    
     try {
-      const res = await axios.post("http://localhost:8800/api/auth/register", inputs);
+      const res = await makeRequest.post("/auth/register", inputs);
       console.log("register sucess")
       onLoginLink(false);
     } catch (err) {

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import './More.css';
-import { AuthContext } from '../../Context/Authcontext';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineLogout } from 'react-icons/ai';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/Authcontext';
+import './More.css';
 
 const More = () => {
   const { user, dispatch } = useContext(AuthContext);

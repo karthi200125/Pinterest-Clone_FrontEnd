@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import './Comment.css';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/Authcontext';
+import './Comment.css';
 
 const Comment = ({ comment }) => {
   const { user } = useContext(AuthContext);

@@ -26,15 +26,15 @@ const Update = ({ updateClose, data, unsave }) => {
   };
 
   const handleUnsave = async () => {
-    try {                  
-      const res = await makeRequest.post('/users/unsavepost', { userId: user._id, postId: data._id });        
-      dispatch({ type: "UPDATE_PROFILE", payload: { savedposts: res } });  
+    try {
+      const res = await makeRequest.post('/users/unsavepost', { userId: user._id, postId: data._id });
+      dispatch({ type: "UPDATE_PROFILE", payload: { savedposts: res } });
       window.location.reload();
     } catch (err) {
       console.error(err);
     }
   }
-  
+
   const imageUrl = "/upload/" + data.p_image;
 
 
@@ -48,7 +48,7 @@ const Update = ({ updateClose, data, unsave }) => {
         </a>
         {(!unsave && pathname === user._id) && (
           <>
-            <span onClick={handleDelete}>Delete Image</span>            
+            <span onClick={handleDelete}>Delete Image</span>
           </>
         )}
         {unsave && pathname === user._id && (

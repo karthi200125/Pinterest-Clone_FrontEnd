@@ -59,9 +59,7 @@ const EditProfile = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  console.log("fromn edit", user)
+  };  
 
   return (
     <>

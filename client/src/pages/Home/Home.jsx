@@ -36,9 +36,7 @@ const Home = () => {
             setFilteredPosts(data);
             setSearchActive(false);
         }
-    }, [searchQuery, data]);
-
-    console.log("from home user id",user)
+    }, [searchQuery, data]);    
 
     return (
         <div className='home'>

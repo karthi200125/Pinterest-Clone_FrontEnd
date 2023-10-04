@@ -1,16 +1,16 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
-import './Share.css';
 import {
-  FacebookShareButton,
-  WhatsappShareButton,
   FacebookIcon,
+  FacebookShareButton,
+  PinterestIcon,
+  PinterestShareButton,
+  TelegramIcon,
   TelegramShareButton,
   WhatsappIcon,
-  PinterestShareButton,
-  PinterestIcon,
-  TelegramIcon,
+  WhatsappShareButton,
 } from 'react-share';
+import './Share.css';
 
 const Share = ({ imageUrl, shareClose }) => {
   const shareUrl = imageUrl;

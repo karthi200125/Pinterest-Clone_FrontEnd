@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './Create.css';
-import { GrClose } from 'react-icons/gr';
-import { BsQuestionLg } from 'react-icons/bs';
 import { BiSolidUpArrowCircle } from 'react-icons/bi';
+import { BsQuestionLg } from 'react-icons/bs';
+import { GrClose } from 'react-icons/gr';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
+import './Create.css';
 
 const Create = () => {
   const [createopen, setcreateopen] = useState(false);
@@ -13,9 +13,7 @@ const Create = () => {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-
-    // Navigate to the "Upload" page with the selected file as state
+    setFile(selectedFile);    
     navigate('/upload', { state: selectedFile });
   };
 
