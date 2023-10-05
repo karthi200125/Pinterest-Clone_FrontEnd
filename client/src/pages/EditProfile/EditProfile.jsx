@@ -1,34 +1,24 @@
-import React, { useContext, useState } from 'react';
-import './EditProfile.css';
-import { AuthContext } from '../../Context/Authcontext';
-import Navbar from '../../components/Navbar/Navbar';
-import { BiSolidRightArrowAlt } from 'react-icons/bi'
-import { makeRequest } from '../../axios'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {  useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { BiSolidRightArrowAlt } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/Authcontext';
+import { makeRequest } from '../../axios';
+import Navbar from '../../components/Navbar/Navbar';
+import { errorToast, successToast } from '../../toasts';
+import './EditProfile.css';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import app from '../../firebase';
 
 const EditProfile = () => {
   const { user, dispatch } = useContext(AuthContext);
   const queryClient = useQueryClient();
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
 
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
-  const [password, setpassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const upload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await makeRequest.post("/upload", formData);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  }
 
   const mutation = useMutation((newpost) => {
     return makeRequest.put(`/users/${user._id}`, newpost);
@@ -38,28 +28,54 @@ const EditProfile = () => {
     },
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isLoading) return;
-    setIsLoading(true);
+  const handleUploadProgress = (snapshot) => {
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+  };
 
+  const handleUploadError = (error) => {
+    errorToast('Upload error');
+    setIsLoading(false);
+  };
+
+  const handleUploadComplete = async (uploadTask) => {
     try {
-      let imgUrl = await upload();
+      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
       await mutation.mutateAsync({
         email,
         username,
-        // password,
         userId: user._id,
-        profilePic: imgUrl
+        profilePic: downloadURL
       });
-      dispatch({ type: "UPDATE_PROFILE", payload: { email, username, profilePic: imgUrl } });
-      navigate(`/profile/${user._id}`)      
+      dispatch({ type: "UPDATE_PROFILE", payload: { email, username, profilePic: downloadURL } });
+      navigate(`/profile/${user._id}`);
+      successToast("User Profile Updated");
     } catch (error) {
-      console.error("Update Failed");
+      errorToast("User Profile Update Failed");
     } finally {
       setIsLoading(false);
     }
-  };  
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isLoading || !file) return;
+
+    setIsLoading(true);
+
+    try {
+      const imgUrl = new Date().getTime() + file.name;
+      const storage = getStorage(app);
+      const storageRef = ref(storage, imgUrl);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on('state_changed', handleUploadProgress, handleUploadError);
+      uploadTask.then(() => handleUploadComplete(uploadTask));
+    } catch (error) {
+      errorToast("User Profile Update Failed");
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -75,7 +91,7 @@ const EditProfile = () => {
             <p>Photo</p>
             <div className='imgcon2'>
               {user.profilePic ?
-                <img src={"../upload/" + user.profilePic} alt={user.username} className='editproimg' />
+                <img src={user.profilePic} alt={user.username} className='editproimg' />
                 :
                 <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" className='editpropic' />
               }
@@ -106,14 +122,10 @@ const EditProfile = () => {
             <span>Email</span>
             <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
-          {/* <div className='editinputbox'>
-            <span>password</span>
-            <input type='password' placeholder='password' value={password} onChange={(e) => setpassword(e.target.value)} />
-          </div> */}
           <div className='btns'>
             <button className='graybtn'>Reset</button>
-            <button className='redbtn' type='submit'>
-              {isLoading ? "pleaseWait..." : "Save"}
+            <button className='redbtn' type='submit' disabled={isLoading}>
+              {isLoading ? "Please Wait..." : "Save"}
             </button>
           </div>
         </form>

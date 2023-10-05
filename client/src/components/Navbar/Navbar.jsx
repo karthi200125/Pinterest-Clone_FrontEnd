@@ -50,7 +50,7 @@ const Navbar = () => {
         <Link to={`/profile/${user._id}`}>
           <div className='iconhovercon'>
             {user.profilePic ?
-              <img src={`../upload/${user.profilePic}`} alt="" />
+              <img src={user.profilePic} alt="" />
               :
               <img src="https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp" alt="" />
             }

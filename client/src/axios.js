@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const makeRequest = axios.create({
-    baseURL:'https://pinterestapii.onrender.com/api/'
+    baseURL:'https://pinterest-z3bd.onrender.com/api/'    
 })
 

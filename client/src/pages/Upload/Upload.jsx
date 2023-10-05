@@ -7,6 +7,9 @@ import Navbar from '../../components/Navbar/Navbar';
 import { useLocation } from 'react-router-dom';
 import { makeRequest } from '../../axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { errorToast, successToast } from '../../toasts';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import app from '../../firebase'
 
 const Upload = () => {
   const { user } = useContext(AuthContext);
@@ -21,18 +24,6 @@ const Upload = () => {
   const [desc, setDesc] = useState('');
   const [file, setFile] = useState(imgfromcreate || null);
 
-  const upload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const res = await makeRequest.post('/upload', formData);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
-
   const mutation = useMutation((newpost) => {
     return makeRequest.post('/posts', newpost)
   }
@@ -42,29 +33,56 @@ const Upload = () => {
       },
     })
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (loading) return;
-    setLoading(true)
-    try {
-      let imgUrl = await upload();
-      mutation.mutate({
-        p_title: title,
-        p_desc: desc,
-        userId: user._id,
-        p_image: imgUrl,
-      })
-      setFile("")
-      setDesc("")
-      setFile(null)
-      console.log('Post created successfully');
-    } catch (error) {
-      console.error('Post create failed');
-    } finally {
-      setLoading(false)
-    }
-  };
-
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (loading || !file) return;
+    
+      setLoading(true);
+    
+      try {
+        const imgUrl = new Date().getTime() + file.name;
+        const storage = getStorage(app);
+        const storageRef = ref(storage, imgUrl);
+    
+        const uploadTask = uploadBytesResumable(storageRef, file);
+    
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');            
+          },
+          (error) => {            
+            errorToast('Upload error:', error);
+            setLoading(false); 
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref)
+              .then(async (downloadURL) => {
+                mutation.mutate({
+                  p_title: title,
+                  p_desc: desc,
+                  userId: user._id,
+                  p_image: downloadURL,
+                });
+                setFile(null);
+                setDesc('');
+                setTitle('');
+                setLoading(false); 
+                successToast('Post has been created successfully');
+              })
+              .catch((error) => {
+                console.error('Error getting download URL:', error);
+                setLoading(false); 
+              });
+          }
+        );
+      } catch (error) {
+        console.error('Post create failed:', error);
+        setLoading(false); 
+      }
+    };
+    
   return (
     <div className="uploadcon">
       <Navbar />

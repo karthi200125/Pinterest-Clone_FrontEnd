@@ -7,6 +7,7 @@ import { makeRequest } from '../../axios';
 import Share from '../Share/Share';
 import Update from '../Updatebox/update';
 import './Card.css';
+import { successToast } from '../../toasts';
 
 const Card = ({ src, unsave }) => {
   const { user, dispatch } = useContext(AuthContext);
@@ -39,6 +40,7 @@ const Card = ({ src, unsave }) => {
         postImage: src.p_image
       });
       setSaved(!saved);
+      saved ? successToast("post has been UnSaved"):successToast("post has been Saved")
       dispatch({ type: "SAVEDPOSTS", payload: { savedposts: updatedSavedposts } });
     } catch (err) {
       console.error(err);
@@ -59,7 +61,7 @@ const Card = ({ src, unsave }) => {
   return (
     <div className="card" key={id}>
       <Link to={`/single/${id}`} state={src}>
-        <img src={"/upload/" + img} alt={src.username} className="card-image" />
+        <img src={img} alt={src.username} className="card-image" />
       </Link>
       {pathname === "home" && (
         <button className={saved ? "saved-btn" : "save-button"} onClick={toggleSave}>

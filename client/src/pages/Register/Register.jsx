@@ -5,6 +5,7 @@ import { BsPinterest } from 'react-icons/bs';
 import { AuthContext } from '../../Context/Authcontext';
 import { makeRequest } from '../../axios';
 import './Register.css';
+import { errorToast, successToast } from '../../toasts';
 
 const Register = ({ onClose, onLoginLink }) => {
   const [inputs, setInputs] = useState({
@@ -13,6 +14,7 @@ const Register = ({ onClose, onLoginLink }) => {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = () => {
     onClose(false);
@@ -29,15 +31,21 @@ const Register = ({ onClose, onLoginLink }) => {
   const { isFetching, error, dispatch } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();    
+    e.preventDefault();
+    if (isLoading) return;
+    setIsLoading(true);
     try {
       const res = await makeRequest.post("/auth/register", inputs);
-      console.log("register sucess")
+      successToast(res.data)
       onLoginLink(false);
     } catch (err) {
-      console.log(err)      
+      errorToast(err.response.data)
+    } finally {
+      setIsLoading(false);
     }
   };
+  
+
 
   return (
     <div className='login'>
@@ -84,7 +92,7 @@ const Register = ({ onClose, onLoginLink }) => {
           )}
           <span className='fp'>Forget your Password?</span>
           <button className='btnlog' disabled={isFetching}>
-            {isFetching ? 'Please Wait...' : 'Sign Up'}
+            {isLoading ? 'Please Wait...' : 'Sign Up'}
           </button>
           <span>OR</span>
           <div className='auth'>

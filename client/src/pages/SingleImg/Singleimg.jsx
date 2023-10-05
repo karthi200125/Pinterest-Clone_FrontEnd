@@ -16,6 +16,7 @@ import axios from 'axios';
 import { makeRequest } from '../../axios';
 import Comment from '../../components/Comment/Comment';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { emojiToast, errorToast, successToast } from '../../toasts';
 
 const Singleimg = () => {
     const [liked, setLiked] = useState(false);
@@ -47,6 +48,7 @@ const Singleimg = () => {
                 await makeRequest.post("/users/savepost", { userId: user._id, postId: data._id, postImage: data.p_image });
             }
             setSaved(!saved);
+            saved ? successToast("post has been UnSaved"):successToast("post has been Saved")
         } catch (err) {
             console.log(err);
         }
@@ -69,6 +71,7 @@ const Singleimg = () => {
         try {
             await makeRequest.put(`/posts/${pathname}/like`, { userId: user._id });
             setLiked(!liked);
+            liked ? emojiToast("post has been DisLiked", "👎"): emojiToast("post has been Liked" , "👍") ;
             setLikeCount(liked ? likecount - 1 : likecount + 1);
         } catch (err) {
             console.log(err);
@@ -87,10 +90,10 @@ const Singleimg = () => {
         e.preventDefault();
         try {
             await mutation.mutateAsync({ userId: user._id, postId: data._id, username: user.username, profilePic: user.profilePic, comment: commentinput });            
-            console.log("comment created succesfully")
+            emojiToast("Your comment Has been added that post" , "💬")
             setcommentinput("");
         } catch (error) {
-            console.log("comment send failed")
+            errorToast("Failed")
         }
     }
 
@@ -102,7 +105,7 @@ const Singleimg = () => {
             <Navbar />
             <div className="single">
                 <div className="left">
-                    <img src={'/upload/' + data.p_image} alt="" />
+                    <img src={data.p_image} alt="" />
                     <div className="iconhover zoom"><TbZoomPan size={25} /></div>
                 </div>
                 <div className="right">
@@ -131,7 +134,7 @@ const Singleimg = () => {
                                 <Link to={`/profile/${data.userId}`} >
                                     <div className="fname">
                                         {data.userimg ?
-                                            <img src={"/upload/" + data.userimg} alt="" className='img fnameimg' />
+                                            <img src={data.userimg} alt="" className='img fnameimg' />
                                             : <CiUser size={30} />}
                                         <h1>{data.username}<p> following</p></h1>
                                     </div>
@@ -170,7 +173,7 @@ const Singleimg = () => {
                         </span>
                         {data.userId !== user._id &&
                             <div className="comment">
-                                <img src={"/upload/" + user.profilePic} alt={user.username} />
+                                <img src={user.profilePic} alt={user.username} />
                                 <div className="input">
                                     <input type="text" placeholder='Add a comment' value={commentinput} onChange={(e) => setcommentinput(e.target.value)} />
                                     <button onClick={handlecommentclick} className='commentbtn'>send</button>                                    

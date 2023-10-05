@@ -3,6 +3,7 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Authcontext';
 import './More.css';
+import {successToast} from '../../toasts'
 
 const More = () => {
   const { user, dispatch } = useContext(AuthContext);
@@ -14,6 +15,7 @@ const More = () => {
     localStorage.removeItem("user");
     dispatch({ type: "LOGOUT" });
     navigate('/');
+    successToast("logged out successfully")
   };
 
   return (
@@ -25,7 +27,7 @@ const More = () => {
       </div>
       <p>Currently in</p>
       <div className="infobox">
-        <img src={user.profilePic ? `../upload/${user.profilePic}` : 'https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp'} alt={user.username} className='morepropic' />
+        <img src={user.profilePic ? user.profilePic : 'https://images.getpng.net/uploads/preview/instagram-social-network-app-interface-icons-smartphone-frame-screen-template27-1151637511568djfdvfkdob.webp'} alt={user.username} className='morepropic' />
         <div className="details">
           <h1>{user.username}</h1>
           <span>Personal</span>

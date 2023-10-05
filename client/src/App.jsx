@@ -11,6 +11,7 @@ import Profile from './pages/Profile/Profile'
 import Singleimg from './pages/SingleImg/Singleimg'
 import Upload from './pages/Upload/Upload'
 import Explore from './pages/Explore/Explore'
+import { Toaster } from 'react-hot-toast';
 
 
 const App = () => {
@@ -21,8 +22,9 @@ const App = () => {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
+        <Toaster/>
       <BrowserRouter>      
-        <Routes>
+        <Routes>          
           <Route path='/' element={user ? <Navigate to="/home"/> :<LandingPage/>}/> 
           <Route path='/home' element={user ?  <Home/> : <Navigate to="/"/>} />
           <Route path='/create' element={user ?  <Create/> : <Navigate to="/"/>} />

@@ -6,6 +6,7 @@ import { BiSolidError } from 'react-icons/bi';
 import { LoginCall } from '../../apicalls';
 import { AuthContext } from '../../Context/Authcontext';
 import { useNavigate } from 'react-router-dom';
+import { errorToast, successToast } from '../../toasts';
 
 const Login = ({ onClose, onRegLink }) => {
   const [email, setEmail] = useState('');
@@ -26,9 +27,9 @@ const Login = ({ onClose, onRegLink }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();    
     try {
-      await LoginCall({ email, password }, dispatch);
-    } catch (err) {
-      console.error(err);
+      const res = await LoginCall({ email, password }, dispatch);            
+    } catch (err) {      
+      console.log(err)
     }
   };
 
