@@ -123,8 +123,50 @@ form {
     font-weight: bold;
     text-align: center;
     color: black;    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;    
 }
 
+.auth .inputbox span{
+    width: max-content;
+}
+
+.auth .google{
+    width: 100%;
+    border: 1px solid gray;    
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: black;    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+}
+
+.auth .google img {
+    width: 30px;
+    height: 30px;
+}
+
+.auth .inputbox img{
+    width: 22px;
+    height: 22px;
+}
+
+.auth .google span{
+    position: absolute;
+}
+
+.auth .google>:nth-child(3){
+    opacity: 0;
+}
 
 .btm {
     height: 100%;    

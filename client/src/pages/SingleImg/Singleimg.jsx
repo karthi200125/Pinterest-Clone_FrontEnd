@@ -17,14 +17,16 @@ import { makeRequest } from '../../axios';
 import Comment from '../../components/Comment/Comment';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { emojiToast, errorToast, successToast } from '../../toasts';
+import Card from '../../components/Card/Card';
+import Loading from '../../components/Loading/Loading';
 
 const Singleimg = () => {
     const [liked, setLiked] = useState(false);
     const [commentopen, setCommentOpen] = useState(true);
-    const [commentinput, setcommentinput] = useState("");
+    const [commentinput, setCommentInput] = useState(""); // Corrected variable name
     const [saved, setSaved] = useState(false);
     const location = useLocation();
-    const queryClient = useQueryClient();    
+    const queryClient = useQueryClient();
     const data = location.state;
     const pathnameSegments = location.pathname.split('/');
     const pathname = pathnameSegments.pop();
@@ -38,7 +40,7 @@ const Singleimg = () => {
         } else {
             setSaved(false);
         }
-    }, [user.savedposts, data._id]);    
+    }, [user.savedposts, data._id]);
 
     const handleSaveClick = async () => {
         try {
@@ -48,30 +50,29 @@ const Singleimg = () => {
                 await makeRequest.post("/users/savepost", { userId: user._id, postId: data._id, postImage: data.p_image });
             }
             setSaved(!saved);
-            saved ? successToast("post has been UnSaved"):successToast("post has been Saved")
+            saved ? successToast("post has been Unsaved") : successToast("post has been Saved");
         } catch (err) {
             console.log(err);
         }
     };
-    
-    
-    const { isLoading, error, data:commentsdata } = useQuery(["comments"], async() =>
-    await makeRequest.get(`/posts/singlepost/${pathname}`).then((res) => {
-      return res.data;
-    })
-  );      
+
+    const { isLoading, error, data: commentsdata } = useQuery(["comments"], async () =>
+        await makeRequest.get(`/posts/singlepost/${pathname}`).then((res) => {
+            return res.data;
+        })
+    );
 
     useEffect(() => {
-        setLiked(data.p_likes.includes(user._id))
-    }, [user._id, data.p_likes])
+        setLiked(data.p_likes.includes(user._id));
+    }, [user._id, data.p_likes]);
 
-    const [likecount, setLikeCount] = useState(data?.p_likes?.length)
+    const [likecount, setLikeCount] = useState(data?.p_likes?.length);
 
     const handleLikeClick = async () => {
         try {
             await makeRequest.put(`/posts/${pathname}/like`, { userId: user._id });
             setLiked(!liked);
-            liked ? emojiToast("post has been DisLiked", "👎"): emojiToast("post has been Liked" , "👍") ;
+            liked ? emojiToast("post has been Disliked", "👎") : emojiToast("post has been Liked", "👍");
             setLikeCount(liked ? likecount - 1 : likecount + 1);
         } catch (err) {
             console.log(err);
@@ -80,25 +81,32 @@ const Singleimg = () => {
 
     const mutation = useMutation((newpost) => {
         return makeRequest.post(`/posts/comment`, newpost);
-      }, {
+    }, {
         onSuccess: () => {
-          queryClient.invalidateQueries(['comments']);
+            queryClient.invalidateQueries(['comments']);
         },
-      });
+    });
 
-    const handlecommentclick = async (e) => {
+    const handleCommentClick = async (e) => {
         e.preventDefault();
         try {
-            await mutation.mutateAsync({ userId: user._id, postId: data._id, username: user.username, profilePic: user.profilePic, comment: commentinput });            
-            emojiToast("Your comment Has been added that post" , "💬")
-            setcommentinput("");
+            await mutation.mutateAsync({ userId: user._id, postId: data._id, username: user.username, profilePic: user.profilePic, comment: commentinput });
+            emojiToast("Your comment has been added to that post", "💬");
+            setCommentInput("");
         } catch (error) {
-            errorToast("Failed")
+            errorToast("Failed");
         }
     }
 
+    // Filter posts
+    const { isLoading: filterpostsloading, error: filterposterr, data: filterposts } = useQuery(['posts'], async () => {
+        const res = await makeRequest.get(`/posts/allposts`);
+        const allPosts = res.data;
+        const filteredPosts = allPosts.filter(post => post.p_title === data.p_title && post._id !== data._id);
+        return filteredPosts;
+    });
 
-    
+    console.log(filterposts);
 
     return (
         <div className='singlecon'>
@@ -175,17 +183,31 @@ const Singleimg = () => {
                             <div className="comment">
                                 <img src={user.profilePic} alt={user.username} />
                                 <div className="input">
-                                    <input type="text" placeholder='Add a comment' value={commentinput} onChange={(e) => setcommentinput(e.target.value)} />
-                                    <button onClick={handlecommentclick} className='commentbtn'>send</button>                                    
+                                    <input type="text" placeholder='Add a comment' value={commentinput} onChange={(e) => setCommentInput(e.target.value)} />
+                                    <button onClick={handleCommentClick} className='commentbtn'>Send</button> {/* Corrected 'send' */}
                                 </div>
                             </div>
                         }
                     </div>
                 </div>
             </div>
-            <div className="moreliket">
+            <div className="morelikethat">
                 <h1>More Like This</h1>
+                <div className="morelikathatcards">
+                    {filterpostsloading ? (
+                        <Loading />
+                    ) : (
+                        filterposts?.length > 0 ? (
+                            filterposts.map((post) => (
+                                <Card src={post} key={post._id} />
+                            ))
+                        ) : (
+                            <span className='noposts'>No posts yet</span>
+                        )
+                    )}
+                </div>
             </div>
+
         </div>
     );
 }

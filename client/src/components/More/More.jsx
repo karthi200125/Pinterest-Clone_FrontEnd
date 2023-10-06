@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Authcontext';
 import './More.css';
-import {successToast} from '../../toasts'
+import { successToast } from '../../toasts'
 
 const More = () => {
   const { user, dispatch } = useContext(AuthContext);
@@ -20,10 +20,12 @@ const More = () => {
 
   return (
     <div className='more'>
-      <div className="mobnav">
-        <Link to='/home' className={pathname === '/home' ? "active" : ""}><li>Home</li></Link>
-        <li className={pathname === '' ? "active" : ""}>Explore</li>
-        <Link to='/create' className={pathname === '/create' ? "active" : ""}><li>Create</li></Link>
+      <div className="mobilenav">
+        <ul>
+          <Link to='/home' className={pathname === '/home' ? "active" : ""}><li>Home</li></Link>
+          <Link to='/explore'><li className={pathname === '/explore' ? "active" : ""}>Explore</li></Link>
+          <Link to='/create' className={pathname === '/create' ? "active" : ""}><li>Create</li></Link>
+        </ul>
       </div>
       <p>Currently in</p>
       <div className="infobox">
@@ -34,9 +36,11 @@ const More = () => {
           <span>{user.email}</span>
         </div>
       </div>
-      <button className='logout' onClick={handleLogout}>
-        Logout <AiOutlineLogout size={20} />
-      </button>
+      <div className="con">
+        <button className='logout' onClick={handleLogout}>
+          Logout <AiOutlineLogout size={20} />
+        </button>
+      </div>
     </div>
   );
 };

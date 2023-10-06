@@ -61,7 +61,7 @@ const Card = ({ src, unsave }) => {
   return (
     <div className="card" key={id}>
       <Link to={`/single/${id}`} state={src}>
-        <img src={img} alt={src.username} className="card-image" />
+        <img src={img} alt={src.username} className="card-image" loading='lazy'/>
       </Link>
       {pathname === "home" && (
         <button className={saved ? "saved-btn" : "save-button"} onClick={toggleSave}>

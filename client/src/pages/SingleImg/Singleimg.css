@@ -16,7 +16,7 @@
     height: 700px;
     border-radius: 30px;
     overflow: hidden;
-    box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.1);    
+    box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.1);
 }
 
 .single .left {
@@ -32,10 +32,11 @@
     object-fit: cover;
 }
 
-.zoom{
+.zoom {
     background-color: white;
 }
-.zoom:hover{
+
+.zoom:hover {
     background-color: rgba(255, 255, 255, 0.788);
 }
 
@@ -52,37 +53,38 @@
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    width: 100%;        
+    width: 100%;
     position: relative;
 }
 
-.single .right .s_top {    
+.single .right .s_top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    width: 500px;    
-    padding: 40px 40px;    
+    width: 500px;
+    padding: 40px 40px;
 }
 
-.s_top .one , .s_top .two{
+.s_top .one,
+.s_top .two {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-direction: row;        
-    gap: 20px;        
+    flex-direction: row;
+    gap: 20px;
 }
 
-.s_top .two h1{
-  font-size: 15px;
-  font-weight: 500;  
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+.s_top .two h1 {
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
 }
 
-.single .right .s_btm{    
+.single .right .s_btm {
     width: 500px;
     display: flex;
     flex-direction: column;
@@ -90,43 +92,44 @@
     justify-content: space-between;
     padding: 10px 40px;
     gap: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.137);    
+    border-top: 1px solid rgba(0, 0, 0, 0.137);
 }
 
-.single .right .s_btm span , .comment{
-   display: flex;
-   flex-direction: row;
+.single .right .s_btm span,
+.comment {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width:100%;    
-    gap: 5px;    
+    width: 100%;
+    gap: 5px;
 }
 
-.single .right .s_btm .comment img{
+.single .right .s_btm .comment img {
     width: 50px;
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.single .right .s_btm .comment .input{
-    display: flex;   
-    align-items: center;        
+.single .right .s_btm .comment .input {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    width:100%;    
-    background-color: rgba(0, 0, 0, 0.150);    
-    border-radius: 30px;        
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.150);
+    border-radius: 30px;
     overflow: hidden;
 }
 
-.single .right .s_btm .comment .input img{
+.single .right .s_btm .comment .input img {
     width: 30px;
     height: 30px;
     object-fit: cover;
     margin-right: 15px;
 }
 
-.single .right .s_btm .comment .input input{
+.single .right .s_btm .comment .input input {
     padding: 20px;
     width: 100%;
     border: none !important;
@@ -134,111 +137,111 @@
     font-size: 15px;
 }
 
-.single .right .s_btm .comment .input input:focus{
+.single .right .s_btm .comment .input input:focus {
     outline: none !important;
-  }
+}
 
 .s_mid {
-height: 400px;
-width: 100%;
-display: flex;
-align-items: center;
-justify-content: space-between;
-flex-direction: column;
-padding: 20px 40px;
-margin-top: -50px;
-}
-
-.s_mid .follow{
+    height: 400px;
+    width: 100%;
     display: flex;
-align-items: center;
-justify-content: space-between;
-flex-direction: row;
-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-top: -50px;
 }
 
-.s_mid .follow .fname{
+.s_mid .follow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+}
+
+.s_mid .follow .fname {
     display: flex;
     flex-direction: row;
-    align-items: center;    
-    gap: 10px;    
+    align-items: center;
+    gap: 10px;
 }
 
-.s_mid .follow .fname>:nth-child(1){
+.s_mid .follow .fname>:nth-child(1) {
     cursor: pointer;
 }
 
-.s_mid .follow .fname h1{
+.s_mid .follow .fname h1 {
     font-size: 18px;
     text-transform: capitalize;
     font-weight: 500;
     cursor: pointer;
 }
 
-.s_mid .follow .fname h1 p{
+.s_mid .follow .fname h1 p {
     color: rgba(0, 0, 0, 0.612);
     font-size: 15px;
     cursor: auto;
-    
+
 }
 
-.fnameimg{
+.fnameimg {
     width: 50px;
     height: 50px;
-    object-fit: contain !important;    
+    object-fit: contain !important;
 }
 
-.cud{
+.cud {
     width: 100%;
     height: 100%;
-    margin-top: 10px;    
+    margin-top: 10px;
 }
 
-.cud span{
+.cud span {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    font-weight:500;
+    font-weight: 500;
     font-size: 20px;
 }
 
-.imgcontent{    
+.imgcontent {
     width: 100%;
-    height: 250px;    
+    height: 250px;
     overflow: hidden;
     margin-bottom: 20px;
-    display: flex;    
+    display: flex;
     gap: 10px;
     flex-direction: column;
 }
 
-.imgcontent h1{
+.imgcontent h1 {
     font-size: 30px;
     font-weight: 500;
     text-transform: capitalize;
 }
 
-.imgcontent span{   
-    font-size: 15px; 
+.imgcontent span {
+    font-size: 15px;
     color: rgba(0, 0, 0, 0.726);
     text-transform: capitalize;
 }
 
-.commentscon{
+.commentscon {
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 10px;    
-    height: 180px;    
+    gap: 10px;
+    height: 180px;
     overflow: scroll;
-    overflow-x: hidden;    
+    overflow-x: hidden;
     margin-bottom: -50px;
-    padding: 10px;    
+    padding: 10px;
 }
 
-.commentbtn{
+.commentbtn {
     background-color: black;
     color: white;
     padding: 10px;
@@ -248,12 +251,44 @@ width: 100%;
     font-weight: 700;
 }
 
-.commentbtn:hover{
+.commentbtn:hover {
     background-color: white;
     color: black;
 }
-@media screen and (max-width:767px){
-    .single{
+
+.morelikethat {
+    margin-top: 50px;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.morelikethat h1{    
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 10px;
+    border-bottom: 4px solid black;
+}
+
+.morelikathatcards{
+    columns: 5;
+    column-gap: 10px;    
+    width: 100%;
+    text-align: center;
+}
+.noposts{
+    width: 100%;
+    font-size: 20px;   
+    font-weight: 700;
+}
+
+@media screen and (max-width:767px) {
+    .single {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -261,35 +296,44 @@ width: 100%;
         height: max-content;
     }
 
-    .single .left{
-        flex: 1;
-        width: 100%;
-        height: 100vh;
-    }
-    .single .right{
+    .single .left {
         flex: 1;
         width: 100%;
         height: 100vh;
     }
 
-    .single .right .s_top .two h1{
+    .single .right {
+        flex: 1;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .single .right .s_top .two h1 {
         display: none;
     }
+
     .single .right .s_top {
         width: 100%;
         gap: 10px;
     }
-    .single .right .s_btm{
+
+    .single .right .s_btm {
         width: 100%;
     }
-    .s_mid .imgcontent{
+
+    .s_mid .imgcontent {
         text-align: center;
     }
-    .cud{
+
+    .cud {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
-        flex-direction: column;        
+        flex-direction: column;
+    }
+    .morelikathatcards{
+        columns: 2;
+        column-gap: 10px;    
     }
 }

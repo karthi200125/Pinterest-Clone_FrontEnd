@@ -40,13 +40,13 @@ const Main = () => {
         <BsChevronDown size={22} />
       </div>
       <div className="mainimages">
-        <img src={p1} alt="" />
-        <img src={p2} alt="" />
-        <img src={p3} alt="" />
-        <img src={p4} alt="" />
-        <img src={p5} alt="" />        
-        <img src={p6} alt="" />        
-        <img src={p1} alt="" />        
+        <img src={p1} alt="" loading='lazy' />
+        <img src={p2} alt="" loading='lazy' />
+        <img src={p3} alt="" loading='lazy' />
+        <img src={p4} alt="" loading='lazy' />
+        <img src={p5} alt="" loading='lazy' />        
+        <img src={p6} alt="" loading='lazy' />        
+        <img src={p1} alt="" loading='lazy' />        
       </div>
     </div>
   );

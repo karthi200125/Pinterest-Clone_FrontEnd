@@ -1,18 +1,20 @@
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import JWT_decode from 'jwt-decode';
 import React, { useContext, useState } from 'react';
-import './Login.css';
-import { BsPinterest } from 'react-icons/bs';
-import { AiOutlineClose, AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { AiFillEye, AiFillEyeInvisible, AiOutlineClose } from 'react-icons/ai';
 import { BiSolidError } from 'react-icons/bi';
-import { LoginCall } from '../../apicalls';
+import { BsPinterest } from 'react-icons/bs';
 import { AuthContext } from '../../Context/Authcontext';
-import { useNavigate } from 'react-router-dom';
-import { errorToast, successToast } from '../../toasts';
+import { LoginCall } from '../../apicalls';
+import './Login.css';
+import googleimg from '../../assets/google.svg'
+import fbimg from '../../assets/facebook.svg'
 
 const Login = ({ onClose, onRegLink }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showpassword, setshowpassword] = useState('');
-  const naviagate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const { isFetching, error, dispatch } = useContext(AuthContext);
 
@@ -24,18 +26,40 @@ const Login = ({ onClose, onRegLink }) => {
     onRegLink(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();    
+  const handleGoogleLogin = async (credentialResponse) => {
+    const details = JWT_decode(credentialResponse.credential);
+    console.log(details);
     try {
-      const res = await LoginCall({ email, password }, dispatch);            
-    } catch (err) {      
-      console.log(err)
+      await LoginCall(
+        {
+          email: details.email,
+          password: details.sub,
+          username: details.name,
+          profilePic: details.picture,
+        },
+        dispatch
+      );
+    } catch (err) {
+      console.log('Google Login Failed', err);
+    }
+  };
+
+  const CLIENT_ID = '97301674459-dn2r9s3m5p10omcpn42cc4l67jbo5kad.apps.googleusercontent.com';
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await LoginCall({ email, password }, dispatch);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
     <div className='login'>
-      <button className='close' onClick={handleClick}><AiOutlineClose /></button>
+      <button className='close' onClick={handleClick}>
+        <AiOutlineClose />
+      </button>
       <form action='' onSubmit={handleSubmit}>
         <div className='top'>
           <BsPinterest size={30} />
@@ -48,20 +72,46 @@ const Login = ({ onClose, onRegLink }) => {
           </div>
           <div className='inputbox '>
             <label htmlFor='password'>Password</label>
-            <div className="passwordbox">
-            <input type={showpassword ? "text" : "password"} name='password' id='password' onChange={(e) => setPassword(e.target.value)} required placeholder='Password' className='passowrdinput'/>
-            {showpassword ? <AiFillEyeInvisible size={25} onClick={() => setshowpassword(!showpassword)} />
-              : <AiFillEye size={25} onClick={() => setshowpassword(!showpassword)} />
-            }
+            <div className='passwordbox'>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name='password'
+                id='password'
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder='Password'
+                className='passowrdinput'
+              />
+              {showPassword ? (
+                <AiFillEyeInvisible size={25} onClick={() => setShowPassword(!showPassword)} />
+              ) : (
+                <AiFillEye size={25} onClick={() => setShowPassword(!showPassword)} />
+              )}
             </div>
           </div>
-          {error && <p className='err'><BiSolidError />{error}</p>}
+          {error && (
+            <p className='err'>
+              <BiSolidError />
+              {error}
+            </p>
+          )}
           <span className='fp'>Forget your Password?</span>
-          <button className='btnlog' disabled={isFetching}>{isFetching ? 'Please Wait...' : 'Log in'}</button>
+          <button className='btnlog' disabled={isFetching}>
+            {isFetching ? 'Please Wait...' : 'Log in'}
+          </button>
           <span>OR</span>
           <div className='auth'>
-            <div className='inputbox'>Facebook</div>
-            <div className='inputbox'>Google</div>
+            <GoogleOAuthProvider clientId={CLIENT_ID} >
+              <div className="google">
+                <img src={googleimg} alt="" />
+                <span>Sign in with google</span>
+                <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log('Google Login Failed')} />
+              </div>
+            </GoogleOAuthProvider>
+            <div className='inputbox'>
+              <img src={fbimg} alt="" />
+              <span>Sign in with facebook</span>
+            </div>
           </div>
         </div>
         <div className='btm'>
@@ -69,7 +119,11 @@ const Login = ({ onClose, onRegLink }) => {
             By continuing, you agree to Pinterest's<br /> <b>Terms of Service</b> and acknowledge you've read our <b> <br />Privacy Policy. Notice at collection</b>
           </p>
           <div className='line'></div>
-          <span>Not on Pinterest yet?<b className='link' onClick={handleRegLink}>Sign up</b></span>
+          <span>
+            Not on Pinterest yet?<b className='link' onClick={handleRegLink}>
+              Sign up
+            </b>
+          </span>
           <p>Are you a business? Get started here!</p>
         </div>
       </form>

@@ -144,3 +144,15 @@
     animation-delay: 3s; 
     margin-top: -10px;    
 }
+
+@media screen and (max-width: 767px) {
+    .mainimages{
+        margin-top: 100%;
+    }
+    .maincon .main h1 {
+        font-size: 40px;
+    }
+    .maincon .main h2 {
+        font-size: 40px;
+    }
+}

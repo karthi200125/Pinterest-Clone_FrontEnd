@@ -6,6 +6,11 @@ import { AuthContext } from '../../Context/Authcontext';
 import { makeRequest } from '../../axios';
 import './Register.css';
 import { errorToast, successToast } from '../../toasts';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { LoginCall } from '../../apicalls';
+import googleimg from '../../assets/google.svg'
+import fbimg from '../../assets/facebook.svg'
+import JWT_decode from 'jwt-decode';
 
 const Register = ({ onClose, onLoginLink }) => {
   const [inputs, setInputs] = useState({
@@ -15,6 +20,7 @@ const Register = ({ onClose, onLoginLink }) => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  
 
   const handleClick = () => {
     onClose(false);
@@ -45,6 +51,26 @@ const Register = ({ onClose, onLoginLink }) => {
     }
   };
   
+
+  const handleGoogleLogin = async (credentialResponse) => {
+    const details = JWT_decode(credentialResponse.credential);
+    console.log(details);
+    try {
+      await LoginCall(
+        {
+          email: details.email,
+          password: details.sub,
+          username: details.name,
+          profilePic: details.picture,
+        },
+        dispatch
+      );
+    } catch (err) {
+      console.log('Google Login Failed', err);
+    }
+  };
+
+  const CLIENT_ID = '97301674459-dn2r9s3m5p10omcpn42cc4l67jbo5kad.apps.googleusercontent.com';
 
 
   return (
@@ -96,8 +122,17 @@ const Register = ({ onClose, onLoginLink }) => {
           </button>
           <span>OR</span>
           <div className='auth'>
-            <div className='inputbox'>Facebook</div>
-            <div className='inputbox'>Google</div>
+            <GoogleOAuthProvider clientId={CLIENT_ID} >
+              <div className="google">
+                <img src={googleimg} alt="" />
+                <span>Sign in with google</span>
+                <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log('Google Login Failed')} />
+              </div>
+            </GoogleOAuthProvider>
+            <div className='inputbox'>
+              <img src={fbimg} alt="" />
+              <span>Sign in with facebook</span>
+            </div>
           </div>
         </div>
         <div className='btm'>

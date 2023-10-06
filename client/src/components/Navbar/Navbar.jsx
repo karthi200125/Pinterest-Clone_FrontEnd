@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AiFillMessage } from 'react-icons/ai';
+import { RiMenu3Line } from 'react-icons/ri';
 import { BiSolidBell } from 'react-icons/bi';
 import { BsChevronDown, BsPinterest } from 'react-icons/bs';
 import { FaSearch } from 'react-icons/fa';
@@ -57,7 +58,7 @@ const Navbar = () => {
             <span className='iconname'>Your Profile</span>
           </div>
         </Link>
-        <div className='iconhovercon' onClick={() => setmoreopen(!moreopen)}><BsChevronDown size={15} /><span className='iconname'>More</span></div>
+        <div className='iconhovercon' onClick={() => setmoreopen(!moreopen)}><BsChevronDown size={15} className='hambur1'/><RiMenu3Line size={25} className='hambur2'/> <span className='iconname'>More</span></div>
       </div>
       {moreopen &&
         <More />

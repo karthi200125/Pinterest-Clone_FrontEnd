@@ -24,17 +24,17 @@
     cursor: pointer;
   }
   
-  .details {
+  .more .details {
     display: flex;
     flex-direction: column;
     gap: 5px;
   }
   
-  .infobox .details h1 {
+  .more .infobox .details h1 {
     font-size: 16px;
   }
   
-  .infobox .details span {
+  .more .infobox .details span {
     font-size: 13px;
     color: rgba(0, 0, 0, 0.595);
   }
@@ -50,6 +50,7 @@
     border-radius: 50%;
     object-fit: cover;
   }
+  
   
   .logout {
     width: 100%;
@@ -67,22 +68,35 @@
   .logout:hover {
     background-color: rgba(0, 0, 0, 0.120);
   }
+   .more .mobilenav{
+      display: none; 
+   }
+
+   
   
-  .mobnav {
-    display: none;
-  }
   
   @media screen and (max-width: 767px) {
     .more {
       width: 95%;
       padding: 20px;
     }
-    .mobnav {
+    .more .mobilenav{
+      width: 100%;
+      height: max-content;    
+      display: block;
+     }
+  
+     .more .mobilenav ul{
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 30px;
-    }
+      justify-content: center;    
+      flex-direction: column;
+      gap: 40px;
+     }
+     .more .mobilenav .active{
+       width: 100%;
+       text-align: center;
+     }
   }
+
   
