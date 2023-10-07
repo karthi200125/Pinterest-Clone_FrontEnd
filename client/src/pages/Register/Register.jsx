@@ -135,16 +135,10 @@ const Register = ({ onClose, onLoginLink }) => {
             </div>
           </div>
         </div>
-        <div className='btm'>
-          <p>
-            By continuing, you agree to Pinterest's<br /> <b>Terms of Service</b> and acknowledge you've read our{' '}
-            <b> <br />Privacy Policy. Notice at collection</b>
-          </p>
-          <div className='line'></div>
+        <div className='btm'>          
           <span>
             Already a member? <b className='link' onClick={handleLoginLink}>Log in</b>
-          </span>
-          <p>create a free business account</p>
+          </span>          
         </div>
       </form>
     </div>
