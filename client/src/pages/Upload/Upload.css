@@ -1,15 +1,15 @@
-.uploadcon{
+.uploadcon {
     width: 100%;
-    height: 83vh;    
+    height: 83vh;
     display: flex;
-    flex-direction: column;   
-    border-top: 1px solid rgba(0, 0, 0, 0.2); 
+    flex-direction: column;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
     margin-top: 100px;
 }
 
-.publish{
-    width: 100%;    
-    height: 80px;    
+.publish {
+    width: 100%;
+    height: 80px;
     padding: 30px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
@@ -18,19 +18,19 @@
     justify-content: end;
 }
 
-.publish span{
+.publish span {
     color: rgba(0, 0, 0, 0.767);
 }
 
-.upload{
+.upload {
     width: 100%;
-    max-height: 100vh;    
+    max-height: 100vh;
     overflow: scroll;
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
 }
 
-.upload .left{    
+.upload .left {
     width: 40%;
     height: max-content;
     display: flex;
@@ -38,7 +38,7 @@
     justify-content: center;
 }
 
-.upload .left .imgcon{    
+.upload .left .imgcon {
     margin-top: 20px;
     max-height: 500px;
     min-height: 200px;
@@ -49,94 +49,134 @@
     border: 3px solid rgba(0, 0, 0, 0.205);
 }
 
-.upload .left .imgcon img{
+.upload .left .imgcon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     z-index: -1;
 }
 
-.pencil{
+.pencil {
     position: absolute;
     top: 5%;
     right: 5%;
     z-index: 100;
-    background-color: rgba(255, 255, 255, 0.719);    
+    background-color: rgba(255, 255, 255, 0.719);
     color: black;
 }
 
-.pencil:hover{
-    background-color: white;    
+.pencil:hover {
+    background-color: white;
 }
 
-.upload .right{
-    width: 60%;    
-    height: max-content;        
+.upload .right {
+    width: 60%;
+    height: max-content;
 }
 
-.upload .right form{  
-  width: 80%;
-  display: flex;  
-  align-items: start;    
+.upload .right form {
+    width: 80%;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 100%;
 }
 
-.upload .right form .top{
+.upload .right form .top {
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 10px;
     padding: 20px;
+    width: 80%;
 }
 
-.upload .right form .top label{
+.upload .right form .top label {
     font-size: 12px;
-    color: black;    
+    color: black;
 }
 
 .details .checkboxs {
     display: flex;
-    flex-direction: row;            
+    flex-direction: row;
     gap: 40px;
 }
 
-.details .checkboxs .checkbox{
+.details .checkboxs .checkbox {
     display: flex;
     gap: 10px;
 }
 
-.upload .right form .top input{
+.upload .right form .top input {
     padding: 15px;
     width: 100%;
     border: 3px solid rgba(0, 0, 0, 0.2);
-    border-radius: 12px;    
+    border-radius: 12px;
 }
 
 
 
-.upload .right form .top .textarea{
+.upload .right form .top .textarea {
     height: 120px;
     width: 100%;
     border: 4px solid rgba(0, 0, 0, 0.2);
     border-radius: 15px;
-    padding: 10px;    
+    padding: 10px;
+}
+
+textarea::placeholder {
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 textarea:focus {
     outline: none;
-    border-color: skyblue !important; 
-  }
+    border-color: skyblue !important;
+}
 
-  @media screen and (max-width:767px) {
-    .upload{
+@media screen and (max-width:480px) {
+    .publish {
+        padding: 10px;
+    }
+
+    .upload {
         display: flex;
         flex-direction: column;
-        align-items: center;        
-        width: 100% !important;        
+        align-items: center;
+        width: 100% !important;
+        height: max-content;
     }
-    .upload .right form{
-        width: 100% !important;                
+
+    .upload .left {
+        width: 100%;
+        padding: 10px;
     }
-    .details{
+
+    .upload .left .imgcon {
+        width: 100%;
+    }
+
+    .upload .right {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .upload .right form {
+        width: 100% !important;
+        flex-direction: column;
+    }
+
+    .upload .right form .top {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .details {
         display: none;
     }
-  }
+
+    textarea::placeholder {
+        font-size: 10px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+}

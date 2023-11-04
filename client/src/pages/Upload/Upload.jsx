@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react';
-import './Upload.css';
-import { BiSolidPencil } from 'react-icons/bi';
-import { AuthContext } from '../../Context/Authcontext';
-import axios from 'axios';
-import Navbar from '../../components/Navbar/Navbar';
-import { useLocation } from 'react-router-dom';
-import { makeRequest } from '../../axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import React, { useContext, useState } from 'react';
+import { BiSolidPencil } from 'react-icons/bi';
+import { useLocation } from 'react-router-dom';
+import { AuthContext } from '../../Context/Authcontext';
+import { makeRequest } from '../../axios';
+import Navbar from '../../components/Navbar/Navbar';
+import app from '../../firebase';
 import { errorToast, successToast } from '../../toasts';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import app from '../../firebase'
+import './Upload.css';
 
 const Upload = () => {
   const { user } = useContext(AuthContext);

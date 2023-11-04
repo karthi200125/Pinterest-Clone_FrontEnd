@@ -1,0 +1,88 @@
+.mn {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+    color: white;
+}
+
+.mobnavclose {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.mbnavlinks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    width: 80%;    
+    padding: 10px;
+}
+
+.mbnavlinks li{
+    border-radius: 10px;
+    padding: 12px;
+    width: 100%;
+    text-align: center;
+}
+
+.mbnavlinks li:hover{
+    background-color: rgba(255, 255, 255, 0.119);
+}
+
+.mbnavbtm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    justify-content: center;    
+    gap: 20px; 
+    padding: 10px;   
+    background-color: rgba(255, 255, 255, 0.119);
+    border-radius: 20px;
+}
+
+.mbnavbtm .btm{
+    display: flex;
+    flex-direction: row;
+    align-items: center;    
+    justify-content: center;    
+    gap: 20px;    
+    width: 100% !important;
+    text-align: center;    
+    padding: 12px;
+    border-radius: 15px;
+}
+
+.mbnavbtm .btm:hover{
+    background-color: white;
+    color: black;
+}
+
+.mbnavpro{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    width: 100%;    
+    gap: 10px;        
+}
+
+.mbnavpro span , .mbnavlogout span{
+    font-size: 15px;
+}
+
+.mbnavbtm img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}

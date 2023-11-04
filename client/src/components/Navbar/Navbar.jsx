@@ -8,9 +8,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Authcontext';
 import More from '../More/More';
 import './Navbar.css';
+import MobileNav from '../MobileNav/MobileNav';
 
 const Navbar = () => {
   const [moreopen, setmoreopen] = useState(false);
+  const [monavopen, setmonavopen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const pathname = location.pathname;
@@ -58,11 +60,16 @@ const Navbar = () => {
             <span className='iconname'>Your Profile</span>
           </div>
         </Link>
-        <div className='iconhovercon' onClick={() => setmoreopen(!moreopen)}><BsChevronDown size={15} className='hambur1'/><RiMenu3Line size={25} className='hambur2'/> <span className='iconname'>More</span></div>
+        <div className='iconhovercon'>
+          <BsChevronDown size={15} className='hambur1' onClick={() => setmoreopen(!moreopen)} /><span className='iconname'>More</span>
+          <RiMenu3Line size={25} className='hambur2' onClick={() => setmonavopen(!monavopen)} /> </div>
       </div>
       {moreopen &&
         <More />
       }
+      <div className={monavopen ? "mnactive" : "mb"}>
+        <MobileNav onclose={setmonavopen} />
+      </div>
     </div>
   );
 };

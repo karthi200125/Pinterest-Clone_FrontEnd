@@ -29,7 +29,7 @@ const Home = () => {
 
     useEffect(() => {
         if (searchQuery && data) {
-            const filtered = data.filter(post => post.p_title.includes(searchQuery));
+            const filtered = data?.filter(post => post?.p_title?.includes(searchQuery));
             setFilteredPosts(filtered);
             setSearchActive(true);
         } else {            
@@ -38,8 +38,7 @@ const Home = () => {
         }
     }, [searchQuery, data]);    
 
-    console.log("from home" , user)
-
+    
     return (
         <div className='home'>
             <Navbar />
@@ -51,10 +50,10 @@ const Home = () => {
                         <p>Error: {error.message}</p>
                     ) : (
                         (searchActive ? (
-                            filteredPosts.length === 0 ? (
+                            filteredPosts?.length === 0 ? (
                                 <p className='noresult'>No results found "{`${searchQuery}`}"</p>
                             ) : (
-                                filteredPosts.map((post) => (                                    
+                                filteredPosts?.map((post) => (                                    
                                         <Card src={post} key={post._id} />
                                 ))
                             )

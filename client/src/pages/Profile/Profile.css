@@ -1,8 +1,8 @@
-.profilecon{
+.profilecon {
     width: 100%;
     min-height: 100vh;
     padding: 20px;
-    display: flex;    
+    display: flex;
     justify-content: start;
     align-items: center;
     flex-direction: column;
@@ -10,8 +10,8 @@
     margin-top: 100px;
 }
 
-.profile{
-    width: 300px;    
+.profile {
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,72 +19,73 @@
     flex-direction: column;
 }
 
-.profile img{
-   width: 120px;
-   height: 120px;
-   object-fit: cover;
-   border-radius: 50%;
+.profile img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-.profile h1{
+.profile h1 {
     font-size: 35px;
     font-weight: 400;
 }
 
-.profile p, .profile span{
+.profile p,
+.profile span {
     font-size: 15px;
     color: rgba(0, 0, 0, 0.847);
 }
 
-.profile .btns{
+.profile .btns {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 20px;    
+    gap: 20px;
 }
 
-.cs-maincon{
-    width: 100%;    
-    display: flex;   
-    flex-direction: column; 
+.cs-maincon {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.cs-maincon .c-s{
+.cs-maincon .c-s {
     display: flex;
     align-items: center;
     flex-direction: row;
     gap: 20px;
 }
 
-.cs-maincon .c-s span{
+.cs-maincon .c-s span {
     font-size: 15px;
     font-weight: 700;
-    padding: 10px 0;    
-    cursor: pointer;        
+    padding: 10px 0;
+    cursor: pointer;
 }
 
-.slideactive{    
+.slideactive {
     border-bottom: 3px solid black;
 }
 
-.cs-con{
-    width: 100%;    
+.cs-con {
+    width: 100%;
     height: max-content;
-    margin-top: 10px;    
+    margin-top: 10px;
     padding: 0 40px;
 }
 
-.cs-con .createcon , .cs-con .savedcon{
+.cs-con .createcon,
+.cs-con .savedcon {
     width: 100%;
     height: max-content;
-    columns: 5;
-    column-gap: 0px;
-    margin: 20px auto;        
-    pad: 10px;    
+    columns: 5;    
+    padding: 10px;
+    column-gap: 10px;    
 }
 
-.savedconicons{
+.savedconicons {
     width: 100%;
     padding: 10px;
     display: flex;
@@ -92,7 +93,7 @@
     justify-content: space-between;
 }
 
-.nosaved{    
+.nosaved {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,36 +101,32 @@
 }
 
 .notceated {
-width: 100%;
-display: flex;
-align-items: center;
-flex-direction: column;
-gap: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
-@media screen and (max-width:767px){
-        
-    .cs-con{
-        width: 400px;
+@media screen and (max-width:480px) {
+
+    .cs-con {
+        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: center;        
+        padding: 0px;        
     }
-    .cs-con .createcon , .cs-con .savedcon {        
+
+    .cs-con .createcon {
         columns: 2;
-        width: 380px;
+        column-gap: 10px;                        
+    }
+
+    .cs-con .savedcon {
+        columns: 2;
+        width: 100%;
         column-gap: 10px;
-    }    
-}
-/* @media screen and (max-width:540px){
-    .cs-con .createcon , .cs-con .savedcon{
-        columns: 2;
+        padding: 10px;
     }
 }
-@media screen and (max-width:767px){
-    .cs-con .createcon , .cs-con .savedcon{
-        columns: 3;
-    }
-} */
-
-

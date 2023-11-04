@@ -36,8 +36,7 @@ const Update = ({ updateClose, data, unsave }) => {
 
   };
 
-  console.log(data.p_image)
-
+  
   const handleUnsave = async () => {
     try {
       const res = await makeRequest.post('/users/unsavepost', { userId: user._id, postId: data._id });

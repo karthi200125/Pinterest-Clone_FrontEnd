@@ -110,15 +110,12 @@
     z-index: 999;
   }
   
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width:480px) {
     .card {
-      width: 200px;
+      width: 100%;
+      min-width: 150px;      
+      max-width: 200px;      
     }
   }
-  
-  @media screen and (max-width: 400px) {
-    .card {
-      width: 170px;
-    }
-  }
+    
   

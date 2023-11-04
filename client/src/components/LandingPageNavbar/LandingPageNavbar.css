@@ -1,83 +1,97 @@
 .LandingPageNavbar {
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: white;
-  }
-  
-  .left {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .left .brand {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-weight: bold;
-    font-size: 22px;
-    letter-spacing: -1px;
-    color: #E60023;
-    cursor: pointer;
-  }
-  
-  .right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: white;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.left .brand {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: -1px;
+  color: #E60023;
+  cursor: pointer;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.right ul {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-right: 40px;
+}
+
+.right ul li {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.loginbtn,
+.signupbtn {
+  background-color: #E60023;
+  color: white;
+}
+
+.loginbtn:hover,
+.signupbtn:hover {
+  background-color: #9e041bd8;
+}
+
+.signupbtn {
+  background-color: rgba(0, 0, 0, 0.070);
+  color: black;
+}
+
+.signupbtn:hover {
+  background-color: rgba(0, 0, 0, 0.150);
+}
+
+.right ul li:hover {
+  text-decoration: underline;
+}
+
+.logincon,
+.signupcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.422);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width:480px) {
   .right ul {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-right: 40px;
+    display: none;
   }
-  
-  .right ul li {
-    font-size: 16px;
-    font-weight: bold;
+
+  .left>:nth-child(1) {
+    font-size: 20px;
   }
-  
-  .loginbtn,
-  .signupbtn {
-    background-color: #E60023;
-    color: white;
+
+  .left .brand {
+    font-size: 20px;    
   }
-  
-  .loginbtn:hover,
-  .signupbtn:hover {
-    background-color: #9e041bd8;
+  .loginbtn , .signupbtn{
+    font-size: 15px;
+    padding: 10px;
   }
-  
-  .signupbtn {
-    background-color: rgba(0, 0, 0, 0.070);
-    color: black;
-  }
-  
-  .signupbtn:hover {
-    background-color: rgba(0, 0, 0, 0.150);
-  }
-  
-  .right ul li:hover {
-    text-decoration: underline;
-  }
-  
-  .logincon,
-  .signupcon {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.422);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  @media screen and (max-width:767px) {
-    
-  }
-  
+
+}

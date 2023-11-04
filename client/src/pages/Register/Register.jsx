@@ -128,11 +128,7 @@ const Register = ({ onClose, onLoginLink }) => {
                 <span>Sign in with google</span>
                 <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log('Google Login Failed')} />
               </div>
-            </GoogleOAuthProvider>
-            <div className='inputbox'>
-              <img src={fbimg} alt="" />
-              <span>Sign in with facebook</span>
-            </div>
+            </GoogleOAuthProvider>            
           </div>
         </div>
         <div className='btm'>          

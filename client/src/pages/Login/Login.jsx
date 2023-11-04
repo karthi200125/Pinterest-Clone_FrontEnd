@@ -6,9 +6,8 @@ import { BiSolidError } from 'react-icons/bi';
 import { BsPinterest } from 'react-icons/bs';
 import { AuthContext } from '../../Context/Authcontext';
 import { LoginCall } from '../../apicalls';
+import googleimg from '../../assets/google.svg';
 import './Login.css';
-import googleimg from '../../assets/google.svg'
-import fbimg from '../../assets/facebook.svg'
 
 const Login = ({ onClose, onRegLink }) => {
   const [email, setEmail] = useState('');
@@ -107,11 +106,7 @@ const Login = ({ onClose, onRegLink }) => {
                 <span>Sign in with google</span>
                 <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log('Google Login Failed')} />
               </div>
-            </GoogleOAuthProvider>
-            <div className='inputbox'>
-              <img src={fbimg} alt="" />
-              <span>Sign in with facebook</span>
-            </div>
+            </GoogleOAuthProvider>            
           </div>
         </div>
         <div className='btm'>

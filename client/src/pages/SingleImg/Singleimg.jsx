@@ -1,29 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import './Singleimg.css';
-import { TbZoomPan } from 'react-icons/tb';
-import { FiMoreHorizontal } from 'react-icons/fi';
-import { RiUpload2Line } from 'react-icons/ri';
-import { FaLink } from 'react-icons/fa';
-import { BsChevronDown } from 'react-icons/bs';
-import { AiFillHeart } from 'react-icons/ai';
-import { MdKeyboardArrowUp } from 'react-icons/md';
-import { CiUser } from 'react-icons/ci';
-import { Link, useLocation } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../Context/Authcontext';
-import Navbar from '../../components/Navbar/Navbar';
-import axios from 'axios';
-import { makeRequest } from '../../axios';
-import Comment from '../../components/Comment/Comment';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { emojiToast, errorToast, successToast } from '../../toasts';
+import React, { useContext, useEffect, useState } from 'react';
+import { AiFillHeart } from 'react-icons/ai';
+import { CiUser } from 'react-icons/ci';
+import { FaLink } from 'react-icons/fa';
+import { FiMoreHorizontal } from 'react-icons/fi';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import { RiUpload2Line } from 'react-icons/ri';
+import { TbZoomPan } from 'react-icons/tb';
+import { Link, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../Context/Authcontext';
+import { makeRequest } from '../../axios';
 import Card from '../../components/Card/Card';
+import Comment from '../../components/Comment/Comment';
 import Loading from '../../components/Loading/Loading';
+import Navbar from '../../components/Navbar/Navbar';
+import { emojiToast, errorToast, successToast } from '../../toasts';
+import './Singleimg.css';
 
 const Singleimg = () => {
     const [liked, setLiked] = useState(false);
     const [commentopen, setCommentOpen] = useState(true);
-    const [commentinput, setCommentInput] = useState(""); // Corrected variable name
+    const [commentinput, setCommentInput] = useState("");
     const [saved, setSaved] = useState(false);
     const location = useLocation();
     const queryClient = useQueryClient();
@@ -98,7 +95,7 @@ const Singleimg = () => {
         }
     }
 
-    // Filter posts
+
     const { isLoading: filterpostsloading, error: filterposterr, data: filterposts } = useQuery(['posts'], async () => {
         const res = await makeRequest.get(`/posts/allposts`);
         const allPosts = res.data;
@@ -106,8 +103,8 @@ const Singleimg = () => {
         return filteredPosts;
     });
 
-    console.log(filterposts);
-
+    const check = user?.followed?.includes(data?.userId)
+    
     return (
         <div className='singlecon'>
             <Navbar />
@@ -125,7 +122,7 @@ const Singleimg = () => {
                         </div>
                         {data.userId !== user._id &&
                             <div className="two">
-                                <h1>Profile <BsChevronDown /></h1>
+                                <h1>Profile <MdKeyboardArrowDown /></h1>
                                 <button className={saved ? "graybtn" : "redbtn"} onClick={handleSaveClick}>
                                     {saved ? "Saved" : "Save"}
                                 </button>
@@ -144,13 +141,13 @@ const Singleimg = () => {
                                         {data.userimg ?
                                             <img src={data.userimg} alt="" className='img fnameimg' />
                                             : <CiUser size={30} />}
-                                        <h1>{data.username}<p> following</p></h1>
+                                        <h1>{data.username}<p>{check ? "Following" : "Follow"}</p></h1>
                                     </div>
                                 </Link>
                             </div>
                         }
                         <div className="cud">
-                            <span>Comments <div className="iconhover" onClick={() => setCommentOpen(!commentopen)}>{commentopen ? <MdKeyboardArrowUp /> : <BsChevronDown />}</div></span>
+                            <span>{data?.comments?.length ?? 0} Comments <div className="iconhover" onClick={() => setCommentOpen(!commentopen)}>{commentopen ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</div></span>
                             {
                                 data?.comments?.length > 0 ? (
                                     commentopen && (
@@ -161,7 +158,7 @@ const Singleimg = () => {
                                         </div>
                                     )
                                 ) : (
-                                    "No comments yet! Add one to start the conversation."
+                                    <span className='nocmts'>No comments yet! Add one to start the conversation</span>
                                 )
                             }
                         </div>
