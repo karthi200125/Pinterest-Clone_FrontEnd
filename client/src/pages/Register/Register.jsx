@@ -10,6 +10,7 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { LoginCall } from '../../apicalls';
 import googleimg from '../../assets/google.svg'
 import fbimg from '../../assets/facebook.svg'
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner'
 import JWT_decode from 'jwt-decode';
 
 const Register = ({ onClose, onLoginLink }) => {
@@ -118,7 +119,7 @@ const Register = ({ onClose, onLoginLink }) => {
           )}
           <span className='fp'>Forget your Password?</span>
           <button className='btnlog' disabled={isFetching}>
-            {isLoading ? 'Please Wait...' : 'Sign Up'}
+            {isLoading ? <LoadingSpinner/> : 'Sign Up'}
           </button>
           <span>OR</span>
           <div className='auth'>
