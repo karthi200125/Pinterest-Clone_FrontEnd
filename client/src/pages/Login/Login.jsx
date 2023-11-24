@@ -7,6 +7,7 @@ import { BsPinterest } from 'react-icons/bs';
 import { AuthContext } from '../../Context/Authcontext';
 import { LoginCall } from '../../apicalls';
 import googleimg from '../../assets/google.svg';
+import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner
 import './Login.css';
 
 const Login = ({ onClose, onRegLink }) => {
@@ -96,7 +97,7 @@ const Login = ({ onClose, onRegLink }) => {
           )}
           <span className='fp'>Forget your Password?</span>
           <button className='btnlog' disabled={isFetching}>
-            {isFetching ? 'Please Wait...' : 'Log in'}
+            {isFetching ? <LoadingSpinner/> : 'Log in'}
           </button>
           <span>OR</span>
           <div className='auth'>
